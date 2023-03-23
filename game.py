@@ -35,9 +35,9 @@ class Game:
             print(self.month)
 
     def create_villagers(self):
-        villager1 = Villager("Susie",15,"female",70)
-        villager2 = Villager("Otto",17,"male",80)
-        villager3 = Villager("Marie", 2, "female", 70)
+        villager1 = Villager(15,"female",70)
+        villager2 = Villager(17,"male",80)
+        villager3 = Villager( 2, "female", 70)
 
         self.villagers = [villager1,villager2,villager3]
 
