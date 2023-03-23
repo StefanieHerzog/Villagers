@@ -22,18 +22,6 @@ villager3.health = 70
 villager3.probability_of_survival = str()
 
 
-# function for giving a specific villager the first name from the list and then pushing it to the back of the list
-# to do: generalise this function for any villager
-
-def assign_name_to_villager2():
-    if villager2.gender == "female":
-        villager2.name = femalenames[0]
-        usedname = femalenames.pop(0)
-        femalenames.append(usedname)
-    else:
-        villager2.name = malenames[0]
-        usedname = malenames.pop(0)
-        malenames.append(usedname)
 
 
 # functions to determine if a specific villager dies each month
