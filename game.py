@@ -1,12 +1,12 @@
 import threading
 import time
 
-from villager import Villager
+from villager import Villager, create_random_villager
 
 
 class Game:
     game_on = False
-    time_step = 1
+    time_step = 150
     year = 0
     month = 1
 
@@ -15,7 +15,7 @@ class Game:
         answer = input()
         if answer.lower() == "yes":
             self.game_on = True
-            self.create_villagers()
+            self.create_first_villagers(8)
             self.print_stats_all_villagers()
             self.thread = threading.Thread(target=self.start_time_passing)
             self.thread.start()
@@ -34,12 +34,10 @@ class Game:
             # survival_check()
             print(self.month)
 
-    def create_villagers(self):
-        villager1 = Villager(15,"female",70)
-        villager2 = Villager(17,"male",80)
-        villager3 = Villager( 2, "female", 70)
-
-        self.villagers = [villager1,villager2,villager3]
+    def create_first_villagers(self, num):
+        self.villagers = []
+        for i in range (num):
+            self.villagers.append (create_random_villager())
 
 
     def print_stats_all_villagers(self):

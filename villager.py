@@ -31,3 +31,12 @@ def assign_name_to_villager(gender):
         usedname = malenames.pop(0)
         malenames.append(usedname)
     return name
+
+#function that creates a whole random villager!
+
+def create_random_villager():
+    import random
+    age = random.randint(1, 85)
+    gender = random.choice(["female","male"])
+    health = random.randint(20, 100)
+    return Villager(age,gender,health)
