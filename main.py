@@ -1,20 +1,20 @@
-import time
+import game
 
-#function for turning game on
-def turning_game_on ():
-    print("want to play?")
-    time.sleep(5)
-    answer = input()
-    if answer == "yes" or "YES" or "Yes":
-        game_on = True
-
-#function for turning game off
-def turning_game_off ():
-    print("want to end the game?")
-    answer = input()
-    if answer == "yes" or "YES" or "Yes":
-        game_on = False
-
+#
+# #function for turning game on
+# def turning_game_on ():
+#     print("want to play?")
+#     time.sleep(5)
+#     answer = input()
+#     return answer == "yes" or "YES" or "Yes"
+#
+# #function for turning game off
+# def turning_game_off ():
+#     print("want to end the game?")
+#     answer = input()
+#     if answer == "yes" or "YES" or "Yes":
+#         game_on = False
+#
 
 # #creating class Villager:
 #
@@ -32,25 +32,35 @@ def turning_game_off ():
 #
 # malenames = ["John","Edward","Paul","Harold","Albert", "Arthur", "Bernard", "Cedric", "Charles", "Edgar", "Edmund", "Geoffrey", "Henry", "Hugh", "Lancelot", "Louis", "Richard", "Robert", "Stephen", "Thomas", "William"]
 #
-# #setting the timer back
+#setting the timer back
 #
 # year = 0
 # months = 1
-#
+# #
 # # #starting the timer
 #
-# while game_on == true:
-#     time.sleep(150)
-#     months += 1
-#     if months == 13:
-#         year += 1
-#         months = 1
-#    survival_check()
-
-
-   #game actually starts
+# def start_timer():
+#     global months, year, game_on
+#     while game_on:
+#         time.sleep(5)
+#         months += 1
+#         if months == 13:
+#             year += 1
+#             months = 1
+#     # survival_check()
+#         print(months)
+#
+#
+#    #game actually starts
 
 if __name__ == '__main__':
-    print("Game Starting")
-    turning_game_on()
+    print("Start main")
+    game = game.Game()
+
+
+    # thread_list = []
+    # thread = threading.Thread(target=start_timer)
+    # thread_list.append(thread)
+    # thread.start()
+
 
