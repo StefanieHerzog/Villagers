@@ -1,3 +1,4 @@
+
 class Villager:
     name = ""
     age = 0
@@ -12,7 +13,11 @@ class Villager:
         self.health = health
 
     def print_stats(self):
-        print ("Name: ", self.name, " Age: ", self.age, " health: ", self.health , " gender: " , self.gender)
+        print(
+            f"{self.name:<8}",
+            " Age: ", self.age,
+            " health: ", self.health ,
+            self.gender)
 
 femalenames = ["Anna","Agatha","Ophelia","Daisy","Mary","Alice", "Agnes", "Beatrice", "Cecilia", "Eleanor", "Emma",
                "Isabella", "Joan", "Margaret", "Matilda", "Philippa", "Rose", "Sybil", "Theresa", "Ysabel"]
@@ -40,3 +45,4 @@ def create_random_villager():
     gender = random.choice(["female","male"])
     health = random.randint(20, 100)
     return Villager(age,gender,health)
+
