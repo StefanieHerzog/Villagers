@@ -4,6 +4,7 @@ from survival import survival_check
 
 
 from villager import Villager, create_random_villager
+from village import Village
 
 
 class Game:
@@ -18,6 +19,8 @@ class Game:
         if answer.lower() == "yes":
             self.game_on = True
             self.print_rules()
+            self.village = Village()
+            self.village.show_stats()
             self.create_first_villagers(8)
             self.sort_and_print_villagers_by_age()
             self.thread = threading.Thread(target=self.main_loop)
