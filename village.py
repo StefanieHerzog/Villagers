@@ -6,10 +6,10 @@ class Village:
         self.name = input("Definiere einen Namen für dein Dorf: ")
         self.resources = 50
 
-    def show_stats(self, villagers):
+    def show_stats(self, villagers, year, month):
         print(
             f"{self.name:<8}",
-            # TODO " Age: ", self.get_age(),
+            f"Alter: {year} Jahre, {month} Monate",
             " Bewohner: ", len(villagers),
             " Erwachsene: ", self.count_villagers_of_ages(villagers, adult=True),
             " Kinder: ", self.count_villagers_of_ages(villagers, adult=False),
@@ -41,3 +41,4 @@ class Village:
         for villager in villagers:
             total_health += villager.health
         return total_health / len(villagers)
+

@@ -21,7 +21,7 @@ class Game:
             self.print_rules()
             self.village = Village()
             self.create_first_villagers(8)
-            self.village.show_stats(self.villagers)
+            self.village.show_stats(self.villagers, self.year, self.month)
             self.sort_and_print_villagers_by_age()
             self.thread = threading.Thread(target=self.main_loop)
             self.thread.start()
