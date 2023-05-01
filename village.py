@@ -22,9 +22,9 @@ class Village:
     def count_villagers_of_ages(self, villagers, adult):
         counter = 0
         for villager in villagers:
-            if adult and villager.age > 17:
+            if adult and villager.is_adult():
                 counter += 1
-            elif not adult and villager.age <= 17:
+            elif not adult and not villager.is_adult():
                 counter += 1
         return counter
 
@@ -42,3 +42,11 @@ class Village:
             total_health += villager.health
         return total_health / len(villagers)
 
+    def adjust_resources(self, villagers):
+        change_resources = 0
+        for villager in villagers:
+            if villager.is_adult():
+                change_resources += 10
+            change_resources -= 7.5
+        print("Ressourcen Veränderung: ", change_resources)
+        self.resources += change_resources

@@ -19,6 +19,9 @@ class Villager:
             " health: ", self.health ,
             self.gender)
 
+    def is_adult(self):
+        return self.age > 17
+
 femalenames = ["Anna","Agatha","Ophelia","Daisy","Mary","Alice", "Agnes", "Beatrice", "Cecilia", "Eleanor", "Emma",
                "Isabella", "Joan", "Margaret", "Matilda", "Philippa", "Rose", "Sybil", "Theresa", "Ysabel"]
 
