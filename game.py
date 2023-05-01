@@ -20,8 +20,8 @@ class Game:
             self.game_on = True
             self.print_rules()
             self.village = Village()
-            self.village.show_stats()
             self.create_first_villagers(8)
+            self.village.show_stats(self.villagers)
             self.sort_and_print_villagers_by_age()
             self.thread = threading.Thread(target=self.main_loop)
             self.thread.start()
