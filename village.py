@@ -42,6 +42,10 @@ class Village:
             total_health += villager.health
         return total_health / len(villagers)
 
+    def villagers_age(self,villagers):
+        for villager in villagers:
+            villager.age += 1
+
     def adjust_resources(self, villagers):
         change_resources = 0
         for villager in villagers:
