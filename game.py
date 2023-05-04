@@ -4,7 +4,7 @@ from survival import survival_check
 
 
 from villager import Villager, create_random_villager
-from village import Village
+from village import Village, marry
 
 
 class Game:
@@ -38,11 +38,12 @@ class Game:
                 self.year += 1
                 self.month = 1
                 self.village.villagers_age(self.villagers)
-                print(f"Jahr {self.year}, Monat {self.month}")
+            print(f"Jahr {self.year}, Monat {self.month}")
             self.village.adjust_resources(self.villagers)
             self.village.adjust_health(self.villagers)
             if self.month == 1:
                 survival_check(self.villagers)
+                self.ask_for_marriage()
 
 
 
@@ -74,3 +75,22 @@ class Game:
         print("Verheiratete Paare versuchen automatisch jeden Monat, ein Kind zu bekommen. Erfolgschancen variieren je nach Alter, Gesundheit und Zufall.")
         print("Die Ressourcen deines Dorfes beeinflussen die Gesundheit der Bewohner.Achtung, Minderjährige verbrauchen nur Ressourcen, aber schaffen keine")
         print("Du kannst ausserdem bei Ereignissen über weitere Kommandos mit dem Spiel interagieren.")
+
+    def ask_for_marriage(self):
+        self.print_stats_all_villagers()
+        answer = input("Das sind all deine Dorfbewohner. Möchtest du zwei von ihnen verheiraten?")
+        while answer.lower() == "ja":
+            print("Wen möchtest du verheiraten?")
+            person1 = input("1. Dorfbewohner")
+            person2 = input("2. Dorfbewohner")
+            villager1 = self.get_villager_by_name(person1)
+            villager2 = self.get_villager_by_name(person2)
+            marry(villager1,villager2)
+            answer = input("Möchtest du nochmal jemanden verheiraten?")
+
+    def get_villager_by_name(self, name):
+        for villager in self.villagers:
+            if villager.name.lower() == name.lower():
+                villager.print_stats()
+                return villager
+

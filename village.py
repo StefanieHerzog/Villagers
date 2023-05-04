@@ -71,3 +71,19 @@ class Village:
         else:
             for villager in villagers:
                 villager.health -= 30
+
+def marry(person1, person2):
+    print(person1)
+    print(person2)
+    if person1.spouse == person2.name:
+        print("Diese Dorfbewohner sind schon miteinander verheiratet!")
+    elif person1.spouse != "none" or person2.spouse != "none":
+        print("Verheiratete Dorfbewohner dürfen nicht heiraten!")
+    elif person1.gender == person2.gender:
+        print("Leider wurde die gleichgeschlechtliche Ehe in deinem Königreich noch nicht erlaubt")
+    elif person1.age <16 or person2.age <16:
+        print("Zum heiraten muss man mindestens 16 sein!")
+    else:
+        person1.spouse = person2.name
+        person2.spouse = person1.name
+        print(person1.name, "und", person2.name, "haben geheiratet!")

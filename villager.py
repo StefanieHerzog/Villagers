@@ -5,6 +5,7 @@ class Villager:
     age = 0
     health = 100
     gender = ""
+    spouse = "none"
 
     def __init__(self,age,gender,health):
         self.name = assign_name_to_villager(gender)
