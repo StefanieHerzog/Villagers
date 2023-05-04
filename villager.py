@@ -6,16 +6,20 @@ class Villager:
     health = 100
     gender = ""
     spouse = "none"
-    family = []
+    children = []
+    siblings = []
+    parents = []
     pregnant = -1
 
-    def __init__(self,age,gender,health,spouse,family, pregnant):
+    def __init__(self,age,gender,health,spouse,children,siblings, parents, pregnant):
         self.name = assign_name_to_villager(gender)
         self.age = age
         self.gender = gender
         self.health = health
         self.spouse = spouse
-        self.family = family
+        self.children = children
+        self.siblings = siblings
+        self.parents = parents
         self.pregnant = pregnant
 
 
@@ -62,10 +66,17 @@ def assign_name_to_villager(gender):
 
 
 def create_random_villager():
-    return Villager(random.randint(1, 85), random.choice(["female","male"]), random.randint(20, 100),"none" , [],-1)
+    return Villager(random.randint(1, 85), random.choice(["female","male"]), random.randint(20, 100),"none" , [],[],[],-1)
 
-def create_newborn(mother,father):
-    return Villager(0, random.choice(["female","male"]), random.randint(20, 100),"none" , [mother,father],-1)
+def create_newborn(mother):
+    age = 0
+    gender = random.choice(["female", "male"])
+    health = random.randint(20, 100)
+    spouse = "none"
+    parents = [mother.name, mother.spouse]
+    children = []
+    siblings = mother.children
+    return Villager(age, gender, health, spouse, parents, children, siblings, -1)
 
     #old function that creates a whole random villager!
 

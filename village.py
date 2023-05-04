@@ -1,9 +1,11 @@
 import random
 
 from villager import create_newborn
+from utils import get_villager_by_name
 
 class Village:
     name = ""
+    villagers = []
     resources = int()
 
     def __init__(self):
@@ -94,7 +96,7 @@ class Village:
     def advance_pregnancy(self, villagers):
         for villager in villagers:
             if villager.pregnant == 9:
-                newborns = self.birth(villager)
+                newborns = self.birth(villager, get_villager_by_name(villagers, villager.spouse))
                 villagers.extend(newborns)
             if villager.pregnant != -1:
                 villager.pregnant +=1
@@ -115,19 +117,22 @@ class Village:
                 if chance_tfb > 50:
                     villager.pregnant = 0
                     print("Gratulation, ", villager.name, " ist schwanger!")
-    def birth(self, villager):
-        villager.pregnant = -1
-        father = villager.spouse
-        mother = villager.name
+    def birth(self, mother, father):
+        mother.pregnant = -1
         if int(random.randint(1, 250)) != 250:
-            newborn = create_newborn(mother,father)
-            print(mother, "und",father, "haben ein Baby bekommen! Es heisst",newborn.name)
+            newborn = create_newborn(mother)
+            print(mother.name, "und",father.name, "haben ein Baby bekommen! Es heisst",newborn.name)
+            mother.children.append(newborn.name)
+            father.children.append(newborn.name)
             return [newborn]
         else:
-            twin1 = create_newborn(mother, father)
-            twin2 = create_newborn(mother, father)
-            print("Unglaublich!",mother, "und",father, "haben Zwillinge bekommen! Sie heissen",twin1.name ,"und",twin2.name)
+            twin1 = create_newborn(mother)
+            twin2 = create_newborn(mother)
+            print("Unglaublich!",mother.name, "und",father.name, "haben Zwillinge bekommen! Sie heissen",twin1.name ,"und",twin2.name)
+            mother.children.extend([twin1.name,twin2.name])
+            father.children.extend([twin1.name,twin2.name])
             return [twin1, twin2]
+        #die älteren Geschwister müssen das Jüngere auch noch zu den Siblings dazubekommen!
 
 def marry(person1, person2):
     if person1.spouse == person2.name:
@@ -138,6 +143,10 @@ def marry(person1, person2):
         print("Leider wurde die gleichgeschlechtliche Ehe in deinem Königreich noch nicht erlaubt")
     elif person1.age <16 or person2.age <16:
         print("Zum heiraten muss man mindestens 16 sein!")
+    elif person2.name in person1.siblings or person1.name in person2.siblings:
+        print("Geschwister dürfen nicht heiraten!!")
+    elif person2.name in person1.parents or person1.name in person2.parents:
+        print("Geschwister dürfen nicht heiraten!!")
     else:
         person1.spouse = person2.name
         person2.spouse = person1.name

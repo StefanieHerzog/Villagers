@@ -1,7 +1,7 @@
 import threading
 import time
 from survival import survival_check
-
+from utils import get_villager_by_name
 
 from villager import Villager, create_random_villager
 from village import Village, marry
@@ -81,14 +81,14 @@ class Game:
         while answer.lower() == "ja":
             print("Wen möchtest du verheiraten?")
             person1 = input("1. Dorfbewohner")
-            villager1 = self.get_villager_by_name(person1)
+            villager1 = get_villager_by_name(self.villagers, person1)
             if villager1 is None:
                 print("Es gibt keinen Dorfbewohner mit dem Namen", person1)
                 answer = input("Möchtest du nochmal versuchen, ein Paar zu verheiraten?")
                 continue
 
             person2 = input("2. Dorfbewohner")
-            villager2 = self.get_villager_by_name(person2)
+            villager2 = get_villager_by_name(self.villagers, person2)
             if villager2 is None:
                 print("Es gibt keinen Dorfbewohner mit dem Namen", person1)
                 answer = input("Möchtest du nochmal versuchen, ein Paar zu verheiraten?")
@@ -98,8 +98,4 @@ class Game:
             answer = input("Möchtest du nochmal jemanden verheiraten?")
 
 
-    def get_villager_by_name(self, name):
-        for villager in self.villagers:
-            if villager.name.lower() == name.lower():
-                return villager
 
