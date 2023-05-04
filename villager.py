@@ -33,14 +33,14 @@ femalenames = ["Anna", "Agatha", "Ophelia", "Daisy", "Mary", "Alice", "Agnes", "
                "Isabella", "Joan", "Margaret", "Matilda", "Philippa", "Rose", "Sybil", "Theresa", "Ysabel", "Arabella",
                "Adela", "Aelis", "Aenor", "Almodis", "Amice", "Angharad", "Arletta", "Aveline", "Avice", "Basilia",
                "Blanche", "Branwen", "Catalina", "Christiana", "Clarice", "Constance", "Cordelia", "Denise", "Dionisia",
-               "Dulcia", "Edith", "Eglantine", "Ela", "Ermengarde", "Ermentrude", "Felice", "Flora", "Gabrielle",
+               "Dulcia", "Edith", "Eglantine", "Ela", "Ermengarde", "Ermentra", "Felice", "Flora", "Gabrielle",
                "Galiana", "Genevieve", "Gervaise", "Giselle", "Gracia", "Gundred", "Heloise"]
 
 malenames = ["John", "Edward", "Paul", "Harold", "Albert", "Arthur", "Bernard", "Cedric", "Charles", "Edgar", "Edmund",
              "Geoffrey", "Henry", "Hugh", "Lancelot", "Louis", "Richard", "Robert", "Stephen", "Thomas", "William",
              "Adalbert", "Adalhard", "Aelfric", "Aethelwulf", "Alaric", "Alberic", "Ambrose", "Anselm", "Archibald",
              "Baldwin", "Bertram", "Cuthbert", "Eadric", "Eadwin", "Emeric", "Engelbert", "Ferdinand", "Gawain",
-             "Gerald", "Gervase", "Godfrey", "Harvey", "Hubert", "Ivo", "Jocelyn", "Leopold", "Marmaduke"]
+             "Gerald", "Gervase", "Godfrey", "Harvey", "Hubert", "Ivo", "Hector", "Leopold", "Marmaduke"]
 
 
 random.shuffle(femalenames)

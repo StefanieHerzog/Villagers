@@ -4,6 +4,7 @@ from villager import Villager
 # to do: function to see if each villager dies each month
 
 def survival_check(villagers):
+    print("Es ist wieder Winter. Wer wird sterben?")
     for villager in villagers:
         probability = set_probability_of_survival(villager)
         roll_the_die(probability,villager)
@@ -18,7 +19,7 @@ def set_probability_of_survival(villager):
     else:
         probability_of_survival = 90
 
-    return probability_of_survival * villager.health * 1.5 / 100
+    return (probability_of_survival + villager.health)  / 2
 
 
 # print (villager1.probability_of_survival)

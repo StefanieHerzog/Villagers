@@ -14,9 +14,9 @@ class Game:
     month = 1
 
     def __init__(self):
-        print("Want to play game?")
+        print("Möchtest du loslegen?")
         answer = input()
-        if answer.lower() == "yes":
+        if answer.lower() == "ja":
             self.game_on = True
             self.print_rules()
             self.village = Village()
@@ -81,15 +81,25 @@ class Game:
         while answer.lower() == "ja":
             print("Wen möchtest du verheiraten?")
             person1 = input("1. Dorfbewohner")
-            person2 = input("2. Dorfbewohner")
             villager1 = self.get_villager_by_name(person1)
+            if villager1 is None:
+                print("Es gibt keinen Dorfbewohner mit dem Namen", person1)
+                answer = input("Möchtest du nochmal versuchen, ein Paar zu verheiraten?")
+                continue
+
+            person2 = input("2. Dorfbewohner")
             villager2 = self.get_villager_by_name(person2)
-            marry(villager1,villager2)
+            if villager2 is None:
+                print("Es gibt keinen Dorfbewohner mit dem Namen", person1)
+                answer = input("Möchtest du nochmal versuchen, ein Paar zu verheiraten?")
+                continue
+
+            marry(villager1, villager2)
             answer = input("Möchtest du nochmal jemanden verheiraten?")
+
 
     def get_villager_by_name(self, name):
         for villager in self.villagers:
             if villager.name.lower() == name.lower():
-                villager.print_stats()
                 return villager
 

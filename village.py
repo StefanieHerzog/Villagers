@@ -56,9 +56,14 @@ class Village:
         for villager in villagers:
             if villager.is_adult():
                 change_resources += 5
-            change_resources -= 4
-        print("Ressourcen Veränderung: ", change_resources)
+            change_resources -= 2
         self.resources += change_resources
+        if self.resources <0:
+            self.resources = 0
+        if self.resources >100:
+            self.resources = 100
+        print("Ressourcen Veränderung: ", change_resources)
+
 
     def adjust_health(self, villagers):
         if self.resources > 90:
@@ -82,8 +87,9 @@ class Village:
         else:
             for villager in villagers:
                 villager.health -= 30
-        if villager.health > 100:
-            villager.health = 100
+        for villager in villagers:
+            if villager.health > 100:
+                villager.health = 100
 
     def advance_pregnancy(self, villagers):
         for villager in villagers:
@@ -97,7 +103,7 @@ class Village:
         for villager in villagers:
             if villager.gender == "female" and villager.pregnant == -1 and villager.spouse != "none":
                 if villager.age < 25:
-                    chance_tfb = int(random.randint(-50, 50)) + villager.health
+                    chance_tfb = int(random.randint(-50, 30)) + villager.health
                 elif villager.age < 40:
                     chance_tfb = int(random.randint(-70, 20)) + villager.health
                 elif villager.age < 50:
