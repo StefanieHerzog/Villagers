@@ -16,7 +16,7 @@ def set_probability_of_survival(villager):
     elif villager.age < 12 or villager.age > 50:
         probability_of_survival = 50
     else:
-        probability_of_survival = 80
+        probability_of_survival = 90
 
     return probability_of_survival * villager.health * 1.5 / 100
 
@@ -25,17 +25,17 @@ def set_probability_of_survival(villager):
 
 def roll_the_die(probability_of_survival,villager):
     import random
-    random_number = random.randint(1, 100)
+    random_number = random.randint(1, 90)
     print("survival =" + str(probability_of_survival) + "... must be higher than " + str(random_number))
     if random_number > probability_of_survival:
         villager.health = 0
-        print(villager.name , "dies!")
+        print(villager.name , "stirbt!")
     else:
-        print(villager.name , "lives!")
+        print(villager.name , "lebt!")
 
 
 def delete_dead_villagers(villagers):
-    print("The following villagers have died this month:")
+    print("Diese Dorfbewohner sind leider gestorben:")
     index = 0
     while index < len(villagers):
         villager = villagers[index]
@@ -44,3 +44,4 @@ def delete_dead_villagers(villagers):
             villagers.remove(villager)
         else:
             index += 1
+    print("------------------------------------------------")
