@@ -34,13 +34,14 @@ class Game:
         while self.game_on:
             time.sleep(self.time_step)
             self.month += 1
-            print(f"Jahr {self.year}, Monat {self.month}")
-            self.village.adjust_resources(self.villagers)
-            self.village.adjust_health(self.villagers)
             if self.month == 13:
                 self.year += 1
                 self.month = 1
-                survival_check()
+            print(f"Jahr {self.year}, Monat {self.month}")
+            self.village.adjust_resources(self.villagers)
+            self.village.adjust_health(self.villagers)
+            if self.month == 1:
+                survival_check(self.villagers)
 
 
 

@@ -3,48 +3,44 @@ from villager import Villager
 # functions to determine if a specific villager dies each month
 # to do: function to see if each villager dies each month
 
-def survival_check():
-    for villager in self.villagers:
-        set_probability_of_survival()
-        roll_the_die()
-        print_stats_all_dead_villagers()
-        delete_dead_villagers ()
+def survival_check(villagers):
+    for villager in villagers:
+        probability = set_probability_of_survival(villager)
+        roll_the_die(probability,villager)
+    delete_dead_villagers(villagers)
 
 
-def set_probability_of_survival():
-    if age < 6 or age > 60:
+def set_probability_of_survival(villager):
+    if villager.age < 6 or villager.age > 60:
         probability_of_survival = 30
-    elif age < 12 or age > 50:
+    elif villager.age < 12 or villager.age > 50:
         probability_of_survival = 50
     else:
         probability_of_survival = 80
 
-    probability_of_survival = probability_of_survival * health * 1.5 / 100
+    return probability_of_survival * villager.health * 1.5 / 100
 
 
 # print (villager1.probability_of_survival)
 
-def roll_the_die():
+def roll_the_die(probability_of_survival,villager):
     import random
     random_number = random.randint(1, 100)
+    print("survival =" + str(probability_of_survival) + "... must be higher than " + str(random_number))
     if random_number > probability_of_survival:
-        health = 0
-        print("survival =" + str(villager1.probability_of_survival) + "... must be higher than " + str(random_number))
-        print(name , "dies!")
+        villager.health = 0
+        print(villager.name , "dies!")
     else:
-        health = 0
-        print("survival =" + str(villager1.probability_of_survival) + "... must be higher than " + str(random_number))
-        print(name , "lives!")
+        print(villager.name , "lives!")
 
 
-def print_stats_all_dead_villagers(self):
-    for villager in self.villagers:
-        if health == 0:
-                "The following villagers have died this month:"
-                villager.print_stats()
-
-
-def delete_dead_villagers():
-    for villager in self.villagers:
-        if health == 0:
-            del()
+def delete_dead_villagers(villagers):
+    print("The following villagers have died this month:")
+    index = 0
+    while index < len(villagers):
+        villager = villagers[index]
+        if villager.health == 0:
+            villager.print_stats()
+            villagers.remove(villager)
+        else:
+            index += 1

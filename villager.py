@@ -1,10 +1,10 @@
+import random
 
 class Villager:
     name = ""
     age = 0
     health = 100
     gender = ""
-    probability_of_survival = int()
 
     def __init__(self,age,gender,health):
         self.name = assign_name_to_villager(gender)
@@ -27,6 +27,9 @@ femalenames = ["Anna","Agatha","Ophelia","Daisy","Mary","Alice", "Agnes", "Beatr
 
 malenames = ["John","Edward","Paul","Harold","Albert", "Arthur", "Bernard", "Cedric", "Charles", "Edgar", "Edmund",
              "Geoffrey", "Henry", "Hugh", "Lancelot", "Louis", "Richard", "Robert", "Stephen", "Thomas", "William"]
+
+random.shuffle(femalenames)
+random.shuffle(malenames)
 
 # function for giving a specific villager the first name from the list and then pushing it to the back of the list
 def assign_name_to_villager(gender):
