@@ -50,3 +50,20 @@ class Village:
             change_resources -= 7.5
         print("Ressourcen Veränderung: ", change_resources)
         self.resources += change_resources
+
+    def adjust_health(self, villagers):
+        if self.resources > 80:
+            for villager in villagers:
+                villager.health += 20
+        elif self.resources > 50:
+            for villager in villagers:
+                villager.health += 10
+        elif self.resources > 35:
+            for villager in villagers:
+                villager.health -= 10
+        elif self.resources > 20:
+            for villager in villagers:
+                villager.health -= 20
+        else:
+            for villager in villagers:
+                villager.health -= 30
