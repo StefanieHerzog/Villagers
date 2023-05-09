@@ -68,6 +68,9 @@ def assign_name_to_villager(gender):
 def create_random_villager():
     return Villager(random.randint(1, 85), random.choice(["female","male"]), random.randint(20, 100),"none" , [],[],[],-1)
 
+def create_random_minor_villager():
+    return Villager(random.randint(1, 14), random.choice(["female","male"]), random.randint(20, 100),"none" , [],[],[],-1)
+
 def create_newborn(mother):
     age = 0
     gender = random.choice(["female", "male"])

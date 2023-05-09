@@ -46,7 +46,8 @@ class Game:
             self.village.adjust_health(self.villagers)
             self.village.advance_pregnancy(self.villagers)
             self.village.try_for_baby(self.villagers)
-            random_event()
+            self.village.show_stats(self.villagers, self.year, self.month)
+            random_event(self)
             if self.month == 1:
                 survival_check(self.villagers)
                 self.ask_for_marriage()

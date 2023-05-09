@@ -1,24 +1,21 @@
 import random
-
+from villager import create_random_minor_villager
 
 
 
 #all events
 
-def event_0():
-    print("juhu")
+def event_1(game):
+    print("Dir wird berichtet, dass eine Gruppe ausgehungerter Kinder in den Wäldern nahe deines Dorfes lebt. Möchtest du sie aufnehmen?")
+    answer = input("Ja oder Nein?")
+    if answer.lower() == "ja":
+        for i in range (5):
+            game.villagers.append(create_random_minor_villager())
+        game.village.resources -= 30
+        print("Die Kinder schliessen sich dankbar deiner Dorfgemeinschaft an. Allerdings sind sie in einem schlechten gesundheitlichen Zustand\nund benötigen viele Ressourcen, um nur schon eine Chance zu haben, die nächsten Tage zu überleben.")
+    else:
+        print("Du triffst die harte Entscheidung, die Ressourcen deines Dorfes für deine eigenen Dorfbewohner zu sparen.\nNach und nach verstummen die Geräusche aus dem Wald.")
 
-# def event_1():
-#     print("Dir wird berichtet, dass eine Gruppe ausgehungerter Kinder in den Wäldern nahe deines Dorfes lebt. Möchtest du sie aufnehmen?")
-#     answer = input("Ja oder Nein?")
-#     if answer.lower() == "Ja" or "ja":
-#         for i in 5:
-#             create_villager(random.randint(1, 15), random.choice(["female","male"]), random.randint(10, 40))  # create minor villager
-#             change_resources(-30)
-#         print("Die Kinder schliessen sich dankbar deiner Dorfgemeinschaft an. Allerdings sind sie in einem schlechten gesundheitlichen Zustand\nund benötigen viele Ressourcen, um nur schon eine Chance zu haben, die nächsten Tage zu überleben.")
-#     else:
-#         print("Du triffst die harte Entscheidung, die Ressourcen deines Dorfes für deine eigenen Dorfbewohner zu sparen.\nNach und nach verstummen die Geräusche aus dem Wald.")
-#
 #
 # def event_2():
 #     print("Ein hustender Händler klopft ans Tor des Dorfes. Er ist erschöpft und bittet darum, aufgenommen und gesund gepflegt zu werden.\nIm Gegenzug will er euch 30 seiner Ressourcen überlassen. Stimmst du zu?")
@@ -288,20 +285,20 @@ def event_0():
 
 #ein zufälliges Event wählen und ausführen
 
-events = [event_0]
+events = [event_1]
 
 doom3 = 0
 doom8 = 0
 
-def random_event():
+def random_event(game):
     # if doom3 == 1:
     #     event_3b()
     # elif doom8 == 1:
     #     event_8b()
     # else:
-        chance_event = random.randint(1, 8)
-        if chance_event == 7:
-            event_0()
+        chance_event = random.randint(1, 2)
+        if chance_event == 1:
+            event_1(game)
 
 
             #events[random.randint(0,1)]()
