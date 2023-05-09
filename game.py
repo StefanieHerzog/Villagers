@@ -6,6 +6,8 @@ from utils import get_villager_by_name
 from villager import Villager, create_random_villager
 from village import Village, marry
 
+from events import random_event
+
 
 class Game:
     game_on = False
@@ -44,6 +46,7 @@ class Game:
             self.village.adjust_health(self.villagers)
             self.village.advance_pregnancy(self.villagers)
             self.village.try_for_baby(self.villagers)
+            random_event()
             if self.month == 1:
                 survival_check(self.villagers)
                 self.ask_for_marriage()
