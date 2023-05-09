@@ -2,6 +2,7 @@ import random
 
 from villager import create_newborn
 from utils import get_villager_by_name
+from survival import delete_dead_villagers
 
 class Village:
     name = ""
@@ -134,6 +135,11 @@ class Village:
             father.children.extend([twin1.name,twin2.name])
             return [twin1, twin2]
         #die älteren Geschwister müssen das Jüngere auch noch zu den Siblings dazubekommen!
+
+    def change_health_of_all_villagers(self, change, villagers):
+        for villager in villagers:
+            villager.health += change
+        delete_dead_villagers(villagers)
 
 def marry(person1, person2):
     if person1.spouse == person2.name:

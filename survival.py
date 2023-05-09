@@ -34,15 +34,18 @@ def roll_the_die(probability_of_survival,villager):
     else:
         print(villager.name , "lebt!")
 
-
 def delete_dead_villagers(villagers):
-    print("Diese Dorfbewohner sind leider gestorben:")
+    dead_villagers = []
     index = 0
     while index < len(villagers):
         villager = villagers[index]
-        if villager.health == 0:
-            villager.print_stats()
+        if villager.health <= 0:
+            dead_villagers.append(villager)
             villagers.remove(villager)
         else:
             index += 1
-    print("------------------------------------------------")
+    if len(dead_villagers) != 0:
+        print("Diese Dorfbewohner sind leider gestorben:")
+        for villager in dead_villagers:
+            villager.print_stats()
+        print("------------------------------------------------")

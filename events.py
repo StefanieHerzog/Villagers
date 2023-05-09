@@ -16,22 +16,22 @@ def event_1(game):
     else:
         print("Du triffst die harte Entscheidung, die Ressourcen deines Dorfes für deine eigenen Dorfbewohner zu sparen.\nNach und nach verstummen die Geräusche aus dem Wald.")
 
-#
-# def event_2():
-#     print("Ein hustender Händler klopft ans Tor des Dorfes. Er ist erschöpft und bittet darum, aufgenommen und gesund gepflegt zu werden.\nIm Gegenzug will er euch 30 seiner Ressourcen überlassen. Stimmst du zu?")
-#     answer = input("Ja oder Nein?")
-#     if answer.lower() == "Ja" or "ja":
-#         reduce_health_of_all_villagers(30)
-#         change_resources(30)
-#         print("Der Händler schwört dir ewige Dankbarkeit. Eine Woche später reist er, um seine Ressourcen erleichtert,\nwieder ab. Doch als du auf den Dorfplatz trittst, und von überall her Husten hörst, fragst du dich, ob es das wert gewesen war...")
-#     else:
-#         print("Der Händler reist verzweifelt ab. Sein Husten klingt noch lange in deinen Ohren nach...")
-#
-#
+
+def event_2(game):
+    print("Ein hustender Händler klopft ans Tor des Dorfes. Er ist erschöpft und bittet darum, aufgenommen und gesund gepflegt zu werden.\nIm Gegenzug will er euch 30 seiner Ressourcen überlassen. Stimmst du zu?")
+    answer = input("Ja oder Nein?")
+    if answer.lower() == "ja":
+        game.village.change_health_of_all_villagers(-30,game.villagers)
+        game.village.resources += 30
+        print("Der Händler schwört dir ewige Dankbarkeit. Eine Woche später reist er, um seine Ressourcen erleichtert,\nwieder ab. Doch als du auf den Dorfplatz trittst, und von überall her Husten hörst, fragst du dich, ob es das wert gewesen war...")
+    else:
+        print("Der Händler reist verzweifelt ab. Sein Husten klingt noch lange in deinen Ohren nach...")
+
+
 # def event_3():
 #     print("Ein sehr charismatischer Mann erscheint eines Morgens am Dorfeingang. Jeder Mensch, mit dem er spricht,\nist sofort in seinen Bann gezogen. Er möchte ins Dorf ziehen. Möchtest du ihm diesen Wunsch gewähren?")
 #     answer = input("Ja oder Nein?")
-#     if answer.lower() == "Ja" or "ja":
+#     if answer.lower() == "ja"
 #         create_villager(random.randint(18, 85), "male", random.randint(20, 100)) #create male adult villager named Dolus
 #         print("Der Mann freut sich über deine Antwort und zieht zugleich ins Dorf. Er wird schnell zum neuen Liebling\nund alle Dorfbewohner hängen an seinen Lippen.")
 #         doom3 = 1
@@ -47,7 +47,7 @@ def event_1(game):
 # def event_4():
 #     print("Ein Bote kommt mit einer düsteren Botschaft zu euch: Entweder, das Dorf schliesst sich freiwillig dem Herzogtum Balisgtal an,\noder der Herzog schickt seine Soldaten, um das Dorf einzunehmen.")
 #     answer = input("Anschliessen oder Kämpfen?")
-#     if answer.lower() == "Anschliessen" or "anschliessen":
+#     if answer.lower() == "anschliessen":
 #         #von nun an 10% weniger Ressourcen, da Abgaben
 #         print("Der Herzog ist erfreut und deine Dorfbewohner sicher. Dafür nimmt sich der Herzog nun jeden Monat 10% deiner Ressourcen. War es das wohl wert?")
 #     else:
@@ -298,8 +298,7 @@ def random_event(game):
     # else:
         chance_event = random.randint(1, 2)
         if chance_event == 1:
-            event_1(game)
+            event_2(game)
 
-
-            #events[random.randint(0,1)]()
+            # events[random.randint(1,2)](game)
 
