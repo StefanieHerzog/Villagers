@@ -3,7 +3,6 @@ import game
 #    #game actually starts
 
 if __name__ == '__main__':
-    print("Start main")
     game = game.Game()
 
 

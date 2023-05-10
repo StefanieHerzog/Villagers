@@ -11,7 +11,7 @@ from events import random_event
 
 class Game:
     game_on = False
-    time_step = 5 #150
+    time_step = 5
     year = 0
     month = 1
 
@@ -48,6 +48,9 @@ class Game:
             self.village.try_for_baby(self.villagers)
             self.village.show_stats(self.villagers, self.year, self.month)
             random_event(self)
+            if len(self.villagers) == 0:
+                self.game_on = False
+                print("Alle deine Bewohner sind gestorben. Das Spiel ist vorbei.")
             if self.month == 1:
                 survival_check(self.villagers)
                 self.ask_for_marriage()

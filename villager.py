@@ -68,8 +68,20 @@ def assign_name_to_villager(gender):
 def create_random_villager():
     return Villager(random.randint(1, 85), random.choice(["female","male"]), random.randint(20, 100),"none" , [],[],[],-1)
 
+def create_random_old_villager():
+    return Villager(random.randint(60, 85), random.choice(["female","male"]), random.randint(20, 100),"none" , [],[],[],-1)
+
 def create_random_minor_villager():
     return Villager(random.randint(1, 14), random.choice(["female","male"]), random.randint(20, 100),"none" , [],[],[],-1)
+
+def create_random_baby_villager():
+    return Villager(random.randint(0, 2), random.choice(["female","male"]), random.randint(20, 100),"none" , [],[],[],-1)
+
+def create_random_female_villager():
+    return Villager(random.randint(1, 85), "female", random.randint(20, 100),"none" , [],[],[],-1)
+
+def create_random_male_villager():
+    return Villager(random.randint(1, 85), "male", random.randint(20, 100),"none" , [],[],[],-1)
 
 def create_newborn(mother):
     age = 0

@@ -119,6 +119,7 @@ class Village:
                 if chance_tfb > 50:
                     villager.pregnant = 0
                     print("Gratulation, ", villager.name, " ist schwanger!")
+
     def birth(self, mother, father):
         mother.pregnant = -1
         if int(random.randint(1, 250)) != 250:
