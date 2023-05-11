@@ -69,6 +69,7 @@ class Game:
                     self.game_on = False
                     print("Alle deine Bewohner sind gestorben. Das Spiel ist vorbei.")
                     return
+                    break
                 self.ask_for_marriage()
 
 

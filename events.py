@@ -7,7 +7,7 @@ from villager import create_random_female_villager
 from villager import create_random_male_villager
 
 
-#getestete Events:1,2,5,6,7,9,,14,18,21
+#getestete Events:1,2,5,6,7,9,,14,18,21,22
 
 
 def event_1(game):
@@ -276,7 +276,8 @@ def event_13(game):
             game.villagers.append(create_random_female_villager())
         print(anz_neue_db, "neue Mädchen und Frauen sind zu deinem Dorf hinzugestossen.")
     elif answer.lower() == "männlich" or "männliche":
-        game.villagers.append(create_random_male_villager())
+        for i in range(anz_neue_db):
+            game.villagers.append(create_random_male_villager())
         print(anz_neue_db, "neue Jungen und Männer sind zu deinem Dorf hinzugestossen.")
 
 # frauen wurden geaddet obwohl "männlich" geschrieben
@@ -284,7 +285,7 @@ def event_13(game):
 def event_14(game):
     game.sort_and_print_villagers_by_age()
     print("Einer deiner Dorfbewohner hat im Wald ein seltenes und hoch wirksames Heilkraut gefunden.")
-    answer = input("Welchem deiner Dorfbewohner möchtest du dieses zu essen geben?")
+    answer = input("Welchem deiner Dorfbewohner möchtest du dieses zu essen geben? ")
     while True:
         for villager in game.villagers:
             if villager.name.lower() == answer.lower():
@@ -424,7 +425,7 @@ doom3 = 0
 doom8 = 0
 
 def random_event(game):
-    chance_event = random.randint(1, 6)
+    chance_event = random.randint(1, 5)
     if chance_event == 1:
         print(" ")
         print("--------------------- EVENT! ----------------------")
