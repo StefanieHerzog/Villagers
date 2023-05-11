@@ -12,7 +12,7 @@ from villager import create_random_male_villager
 
 def event_1(game):
     print("Dir wird berichtet, dass eine Gruppe ausgehungerter Kinder in den Wäldern nahe deines Dorfes lebt. Möchtest du sie aufnehmen?")
-    answer = input("Ja oder Nein?")
+    answer = input("Ja oder Nein? ")
     if answer.lower() == "ja":
         for i in range (5):
             game.villagers.append(create_random_minor_villager())
@@ -24,7 +24,7 @@ def event_1(game):
 
 def event_2(game):
     print("Ein hustender Händler klopft ans Tor des Dorfes. Er ist erschöpft und bittet darum, aufgenommen und gesund gepflegt zu werden.\nIm Gegenzug will er euch 30 seiner Ressourcen überlassen. Stimmst du zu?")
-    answer = input("Ja oder Nein?")
+    answer = input("Ja oder Nein? ")
     if answer.lower() == "ja":
         game.village.change_health_of_all_villagers(-30,game.villagers)
         game.village.resources += 30
@@ -34,11 +34,12 @@ def event_2(game):
 
 
 def event_3(game):
+    global doom3
     print("Ein sehr charismatischer Mann erscheint eines Morgens am Dorfeingang. Jeder Mensch, mit dem er spricht,\nist sofort in seinen Bann gezogen. Er möchte ins Dorf ziehen. Möchtest du ihm diesen Wunsch gewähren?")
-    answer = input("Ja oder Nein?")
+    answer = input("Ja oder Nein? ")
     if answer.lower() == "ja":
         dolus = create_random_male_villager()
-        dolus.name = "dolus"
+        dolus.name = "Dolus"
         dolus.age = 35
         game.villagers.append(dolus)
         print("Der Mann freut sich über deine Antwort und zieht zugleich ins Dorf. Er wird schnell zum neuen Liebling\nund alle Dorfbewohner hängen an seinen Lippen.")
@@ -47,8 +48,9 @@ def event_3(game):
         print("Eine groteske Grimasse zieht über das Gesicht des Mannes. Er fängt an zu schreien und stampft wütend davon. Nicht alles was glänzt ist gold!")
 
 def event_3b(game):
+    global doom3
     for villager in game.villagers:
-        if villager.name == "dolus":
+        if villager.name == "Dolus":
             print("Der Mann, den du vor kurzem aufgenommen hast, hat eine Sekte aufgebaut und verlässt eines Morgens mit fünf weiteren Bewohnern das Dorf, ohne jemals zurückzukehren.")
             for villager in game.villagers:
                 if villager.name == "dolus":
@@ -57,25 +59,26 @@ def event_3b(game):
                 game.villagers.remove(random.choice(game.villagers))
             doom3 = 0
         else:
-            random_event()
+            doom3 = 0
+            random_event(game)
 
 def event_4(game):
     random_number = int()
     print("Ein Bote kommt mit einer düsteren Botschaft zu euch: Entweder, das Dorf schliesst sich freiwillig dem Herzogtum Balisgtal an,\noder der Herzog schickt seine Soldaten, um das Dorf einzunehmen.")
-    answer = input("Anschliessen oder Kämpfen?")
+    answer = input("Anschliessen oder Kämpfen? ")
     if answer.lower() == "anschliessen":
         game.village.resources -= 50
         print("Der Herzog ist erfreut und deine Dorfbewohner sicher. Dafür verlangt der Herzog hohe Abgaben. War es das wohl wert?")
     else:
-        print(game.village.name, "soll unabhänngig bleiben! Deine Dorfbewohner verteidigen das Dorf ehrenvoll.\nViele Männer zwischen 12 und 60 sterben, doch das Dorf bleibt frei.")
+        print(game.village.name, "soll unabhängig bleiben! Deine Dorfbewohner verteidigen das Dorf ehrenvoll.\nViele Männer zwischen 12 und 60 sterben, doch das Dorf bleibt frei.")
         for villager in game.villagers:
-            random_number = random.int(1,5)
+            random_number = random.randint(1,5)
             if villager.gender == "male" and villager.age < 60 and villager.age > 12 and random_number == 5:
                 game.villagers.remove(villager)
 
 def event_5(game):
     print("Es ist gerade besonders heiss. Das Wasser im Brunnen geht langsam aber sicher zu Neige.\nSollen die Dorfbewohner im Schatten bleiben und weniger arbeiten, oder aber das Wasser aus dem dreckigen Fluss trinken?")
-    answer = input("Schatten oder Fluss?")
+    answer = input("Schatten oder Fluss? ")
     if answer.lower() == "schatten":
         print("Deine Dorfbewohner versuchen, so wenig wie möglich zu schwitzen. Tatsächlich geht der Wasservorrat gerade noch so auf, und niemand muss verdursten.\nAllerdings konnten die Dorfbewohner in dieser Zeit keine Ressourcen erarbeiten.")
         game.village.resources -= 40
@@ -85,11 +88,11 @@ def event_5(game):
 
 def event_6(game):
     print("Eine mysteriöse Frau steht eines morgens vor dem Tor. Sie verkauft zwei verschiedene Elixiere. Jedes kostet 20 Ressourcen. Welches möchtest du kaufen?")
-    answer = input("Fruchtbarkeit, Gesundheit oder keines?")
+    answer = input("Fruchtbarkeit, Gesundheit oder keines? ")
     if answer.lower() == "fruchtbarkeit":
         print("Du verteilst das Elixier all deinen Einwohnern. Wirst du in wenigen Monaten einen Baby-Boom beobachten können?")
         for i in range (3):
-            game.village.try_for_baby()
+            game.village.try_for_baby(game.villagers)
         game.village.resources -= 20
     elif answer.lower() == "gesundheit":
         game.village.resources -= 20
@@ -103,43 +106,47 @@ def event_7(game):
     females = []
     males = []
     for villager in game.villagers:
-        if villager.gender == "male":
+        if villager.gender == "male" and villager.age > 16:
             males.append(villager)
-        else:
-            assert(villager.gender == "female")
+        elif villager.gender == "female":
             females.append(villager)
     victim = random.choice(females)
     offender = random.choice(males)
-    print("Eine blutige Bandage verbigt das Auge von", victim.name, "die deine Hilfe ersucht. Sie erzählt, dass sie von", offender.name, ",\ndem reichsten Mann im Dorf geschlagen wurde. Du hast den Eindruck, er wird als wie gewaltätiger. Was möchtest du tun?")
-    answer = input("Verbannen oder Verzeihen?")
+    print("Eine blutige Bandage verbigt das Auge von", victim.name, "die deine Hilfe ersucht. Sie erzählt, dass sie von", offender.name,",dem \nreichsten Mann im Dorf geschlagen wurde. Du hast den Eindruck, er wird als wie gewaltätiger. Was möchtest du tun?")
+    answer = input("Verbannen oder Verzeihen? ")
     if answer.lower() == "Verbannen" or "verbannen":
-        del (offender)
+        print("Die Dorfbewohner bedanken sich bei dir. Sie fühlen sich jetzt alle sicherer.\nDer Wegzug von " , offender.name,  "hinterlässt allerdings ein klaffendes Loch in der Dorfkasse.")
+        game.villagers.remove(offender)
         game.village.resources -= 20
-        print("Die Dorfbewohner bedanken sich bei dir. Sie fühlen sich jetzt alle sicherer.\nDer Wegzug von " , name.offender,  "hinterlässt allerdings ein klaffendes Loch in der Dorfkasse.")
     else:
-        kill_villager(victim)
-        print("Jemand so reiches aus dem Dorf zu verbannen, kannst du dir einfach nicht leisten - Gefahr hin oder her!\nAm nächsten Tag findest du", name.victim, "tot in einem Innenhof")
+        game.villagers.remove(victim)
+        print("Jemand so reiches aus dem Dorf zu verbannen, kannst du dir einfach nicht leisten - Gefahr hin oder her!\nAm nächsten Tag findest du", victim.name, "tot in einem Innenhof")
 
 
-def event_8():
+def event_8(game):
+    global doom8
     children = []
     for villager in game.villagers:
-        if villager.age < 10:
+        if villager.age < 12 and villager.age > 5:
             children.append(villager)
-    kind = random.choice(children)
-    print("Ein Zirkus fährt durchs Dorf. Der Direktor beobachtet, wie", [kind], "akrobatisch auf einem Baum herumklettert.\nEr ist begeistert und bietet 20 Ressourcen dafür an, ihm das Kind zu verkaufen")
-    answer = input("Verkaufen oder Ablehnen?")
-    if answer.lower() == "verkaufen":
-        for villager in game.villagers:
-            if villager.name == kind.name:
-                game.villagers.remove(villager)
-        game.village.resources += 20
-        print("Die Schreie von Kind und seiner Eltern klingen noch lange in deinen Ohren nach. Doch das Dorf kann die neuen Ressourcen gut gebrauchen.")
-        doom8 = 1
+    if len(children) == 0:
+        random_event(game)
     else:
-        print("Das Kind und seine Familie sind erleichtert, und der Direktor verlässt genervt das Dorf.")
+        kind = random.choice(children)
+        print("Ein Zirkus fährt durchs Dorf. Der Direktor beobachtet, wie", kind.name, "akrobatisch auf einem Baum herumklettert.\nEr ist begeistert und bietet 20 Ressourcen dafür an, ihm das Kind zu verkaufen")
+        answer = input("Verkaufen oder Ablehnen? ")
+        if answer.lower() == "verkaufen":
+            for villager in game.villagers:
+                if villager.name == kind.name:
+                    game.villagers.remove(villager)
+            game.village.resources += 20
+            print("Die Schreie von Kind und seiner Eltern klingen noch lange in deinen Ohren nach. Doch das Dorf kann die neuen Ressourcen gut gebrauchen.")
+            doom8 = 1
+        else:
+            print("Das Kind und seine Familie sind erleichtert, und der Direktor verlässt genervt das Dorf.")
 
 def event_8b(game):
+    global doom8
     print("Plötzlich locken dich Schreie an dein Fenster. Du siehst, wie ein junger Mensch unten auf dem Dorfplatz drei Leute niedersticht,\nbevor er selber getötet wird. Als du dir den Täter aus der Nähe anschaust realisierst du, dass du ihn kennst. Offensichtlich hat", kind, "seinem Dorf nie verziehen, dass ihr es an den Zirkus verkauft habt.")
     for i in range(3):
         game.villagers.remove(random.choice(game.villagers))
@@ -148,7 +155,7 @@ def event_8b(game):
 
 def event_9(game):
     print("Der Betreiber eines Waisenhauses klopft an euer Tor. Er kann es sich nicht mehr leisten, seinen Betrieb weiterzuführen.\nEr bittet euch darum, ihm entweder 30 Ressourcen zu geben oder 5 Babies zu adoptieren. Was machst du?")
-    answer = input("Zahlen, Adoptieren, oder Ablehnen?")
+    answer = input("Zahlen, Adoptieren, oder Ablehnen? ")
     if answer.lower() == "zahlen":
         game.village.resources -= 20
         print("Der Betreiber ist begeistert und dankt dir, für deine Grosszügigkeit. Mitsamt seinen Schützlingen macht er sich auf den Heimweg.")
@@ -191,11 +198,11 @@ def event_11(game):
         print("Nur",old_people," alte Leute? Es scheint, als würdest du alte Leute hassen...")
 
 
-
+#index einbauen, sonst werden nicht alle entfernt!
 def event_12(game):
     removed = 0
     print("Ein Bote verkündet Schlimmes: Der König braucht mehr Bedienstete. Wähle eine Personengruppe, welche du dem König für immer zusendest.")
-    answer = input("Kinder,Alte, Weibliche oder Männliche?")
+    answer = input("Kinder,Alte, Weibliche oder Männliche? ")
     if answer.lower() == "kinder":
         for villager in game.villagers:
             if villager.age < 12:
@@ -204,7 +211,7 @@ def event_12(game):
         if removed > 0:
             print(removed, "Kinder wurden dem König entsendet.")
         else:
-            print("Der König ist entrüstet, dass du versuchst, ihm niemanden zu senden. Als Strafe er 60 Ressurcen von dir ein!")
+            print("Der König ist entrüstet, dass du versuchst, ihm niemanden zu senden. Als Strafe treibt er 60 Ressurcen von dir ein!")
             game.village.resources -= 60
 
     elif answer.lower() == "alte":
@@ -213,7 +220,7 @@ def event_12(game):
                 game.villagers.remove(villager)
                 removed += 1
         if removed > 0:
-            print(removed, "Alten wurden dem König entsendet.")
+            print(removed, "Alte wurden dem König entsendet.")
         else:
             print("Der König ist entrüstet, dass du versuchst, ihm niemanden zu senden. Als Strafe er 60 Ressurcen von dir ein!")
             game.village.resources -= 60
@@ -243,10 +250,11 @@ def event_12(game):
 
 
 def event_13(game):
-    print("Ein edel gekleideter Mann klopft an dein Tor. Anscheinend ist er Marketingexperte.\nEr bietet an, Werbung für dein Dorf zu machen, damit neue Leute zuziehen.\nWie viel möchtest du in diese Werbung investieren?")
-    answer = (input("0,10 oder 30 Ressourcen zahlen? (nur mit einer Zahl antworten)"))
+    anz_neue_db = int()
+    print("Ein edel gekleideter Mann klopft an dein Tor. Anscheinend ist er Marketingexperte.\nEr bietet an, Werbung für dein Dorf zu machen, damit neue Leute zuziehen.\nWie viel möchtest du in diese Werbung investieren? ")
+    answer = (input("0,10 oder 30 Ressourcen zahlen? (nur mit einer Zahl antworten) "))
     while answer != "0" and answer != "10" and answer != "30":
-        answer = (input("Versuch's nochmal. Schreib nur 0,10 oder 30."))
+        answer = (input("Versuch's nochmal. Schreib nur 0,10 oder 30. "))
     if answer == 0:
         print("Der Mann verabschiedet sich höflich und zieht von Dannen.")
         return
@@ -257,9 +265,9 @@ def event_13(game):
         anz_neue_db = 12
         game.village.resources -= 30
     print("Der Mann freut sich, dass du mit ihm Geschäfte machen willst. Welche Personengruppe willst du denn anwerben?")
-    answer = input("Kinder,Alte, Weibliche oder Männliche?")
+    answer = input("Kinder,Alte, Weibliche oder Männliche? ")
     while answer.lower() != "kinder" and answer.lower() != "alte" and answer.lower() != "weibliche" and answer.lower() != "weiblich" and answer.lower() != "männliche" and answer.lower() != "männlich":
-        answer = (input("Versuch's nochmal. Schreib nur 0,10 oder 30."))
+        answer = (input("Versuch's nochmal. Schreib nur 0,10 oder 30. "))
     if answer.lower() == "kinder":
         for i in range(anz_neue_db):
             game.villagers.append(create_random_minor_villager())
@@ -277,83 +285,84 @@ def event_13(game):
         print(anz_neue_db, "neue Jungen und Männer sind zu deinem Dorf hinzugestossen.")
 
 def event_14(game):
+    game.sort_and_print_villagers_by_age()
     print("Einer deiner Dorfbewohner hat im Wald ein seltenes und hoch wirksames Heilkraut gefunden.")
     answer = input("Welchem deiner Dorfbewohner möchtest du dieses zu essen geben?")
-    blub = False
-    while blub == False:
+    while True:
         for villager in game.villagers:
             if villager.name.lower() == answer.lower():
                 villager.health = 100
-                blub = True
+                print("Gratulation,", answer, "wirkt nun wieder deutlich gesünder!")
+                return
         answer = input("Gib den Namen nochmal ein. Achte auf deine Rechtschreibung!")
-    print("Gratulation,", answer, "wirkt nun wieder deutlich gesünder!")
 
 #
 def event_15(game):
-    print("Eines Morgens bemerkst du, dass in euer Lagerhaus eingebrochen wurde! An der Tür hängt ein Zettel, auf dem steht 'Robin Hood war da'")
-    if game.village.ressources > 60:
-        game.village.ressources -= 30
+    print("Eines Morgens bemerkst du, dass in euer Lagerhaus eingebrochen wurde! An der Tür hängt ein Zettel, auf dem steht 'Robin Hood war da'!...")
+    if game.village.resources > 60:
+        game.village.resources -= 30
         print("Du hattest viele Ressourcen im Lagerhaus!... Mit Betonung auf 'hattest'. Vielleicht lernst du jetzt, etwas bescheidener zu leben.")
-    elif game.village.ressources > 40:
+    elif game.village.resources > 40:
         print("Nichts scheint zu fehlen. Offenbar bist du Robin Hood zu 'middle Class'!")
     else:
-        game.village.ressources += 30
+        game.village.resources += 30
         print("Als du ins Lagerhaus reintrittst bemerkst du sofort, dass mehr da ist, als zuvor - Danke, Robin Hood!")
 
 
 def event_16(game):
+    stephen_exists = False
     print("Ein erschöpfter Bote klopft an die Tür. Der König wünsche sich sofort einen 'Stephen' und ist bereit, grosszügig für ihn zu zahlen.")
     for villager in game.villagers:
         if villager.name == "stephen":
             stephen_exists = True
-
-        if stephen_exists:
-            answer = input("Möchtest du Stephen verkaufen? Ja oder Nein?")
-            if answer.lower() == "ja":
-                for villager in game.villagers:
-                    if villager.name == "stephen":
-                        game.villagers.remove(villager)
-                        game.village.ressources += 50
-                print("Der Bote ist enorm erleichtert. Er zieht, mit einem verwirrten Stephen im Schlepptau davon.\nDu schaust ihm hinterher und streichelst den grossen Sack Gold, den du soeben erhlten hast.")
-            else:
-                print("'Stephen? Nein, noch gehört. Schönen Tag noch!' Der Bote macht sich verzweifelt aus dem Staub und Stephen schuldet dir jetzt einen Gefallen!")
-
+    if stephen_exists:
+        answer = input("Möchtest du Stephen verkaufen? Ja oder Nein? ")
+        if answer.lower() == "ja":
+            for villager in game.villagers:
+                if villager.name == "stephen":
+                    game.villagers.remove(villager)
+                    game.village.resources += 50
+            print("Der Bote ist enorm erleichtert. Er zieht, mit einem verwirrten Stephen im Schlepptau davon.\nDu schaust ihm hinterher und streichelst den grossen Sack Gold, den du soeben erhlten hast.")
         else:
-            print("Stephen?")
-            print("...")
-            print("'Stephen?! Haben wir hier irgendwo einen Stephen?!\nDu klopfst an alle Türen im Dorf, doch niemand mit diesem Namen ist auffindbar. Schade. Der Bote zieht von dannen.")
+            print("'Stephen? Nein, noch gehört. Schönen Tag noch!' Der Bote macht sich verzweifelt aus dem Staub und Stephen schuldet dir jetzt einen Gefallen!")
 
-def event_17():
+    else:
+        print("Stephen?")
+        print("...")
+        print("'Stephen?! Haben wir hier irgendwo einen Stephen?!\nDu klopfst an alle Türen im Dorf, doch niemand mit diesem Namen ist auffindbar. Schade. Der Bote zieht von dannen.")
+
+def event_17(game):
     children = []
     for villager in game.villagers:
         if villager.age < 8:
             children.append(villager)
-    kind = random.choice(children)
     if len(children) == 0:
-        random_event()
+        random_event(game)
     else:
+        kind = random.choice(children)
         print("Ein edel gekleidetes Ehepaar klopft an dein Tor. Es kann selber keine Kinder bekommen, und möchte deshalb",kind.name,"adoptieren.\nEs ist bereit, einen guten Preis dafür zu zahlen. Bist du einverstanden?")
-        answer = input("Möchtest du",kind.name,"verkaufen? Ja oder Nein?")
-        if answer.lower() == "Ja":
+        answer = input("Möchtest du "+ str(kind.name)+ " verkaufen? Ja oder Nein? ")
+        if answer.lower() == "ja":
             for villager in game.villagers:
                 if villager.name == kind.name:
                     game.villagers.remove(villager)
-            game.village.ressources += 50
-            print("Das Ehepaae freut sich und verschwindet zusammen mit",kind.name, "im Horizont. \nDu schaust ihnen hinterher und streichelst den grossen Sack Gold, den du soeben erhlten hast.")
+            game.village.resources += 50
+            print("Das Ehepaar freut sich und verschwindet zusammen mit",kind.name, "im Horizont. \nDu schaust ihnen hinterher und streichelst den grossen Sack Gold, den du soeben erhlten hast.")
         else:
-            print(
-                "Das Ehepaar macht sich entrüstet aus dem Staub. So eine Frechheit von dir!")
+            print("Das Ehepaar macht sich entrüstet aus dem Staub. So eine Frechheit von dir!")
 
 def event_18(game):
-    print("Ein Kaufmann ist zu Besuch. Er schlägt ein kleines Glücksspiel vor. Er denkt sich eine Zahl zwischen 1 und 10 aus, und du errätst sie! Gewinnst du, bekommst du das 5-Fache deines Einsatzes zurück.")
+    print("Ein Kaufmann ist zu Besuch. Er schlägt ein kleines Glücksspiel vor. Er denkt sich eine Zahl zwischen 1 und 10 aus, und du errätst sie!\nGewinnst du, bekommst du das 5-Fache deines Einsatzes zurück.")
     answer = int(input("Wieviel möchtest du investieren? Bitte mit einer Zahl antworten."))
-    while answer > game.village.ressources:
+    while answer > game.village.resources:
         print("So viel Geld hast du nicht! Wähle einen realistischeren Betrag.")
         answer = input("Wieviel möchtest du investieren? Bitte mit einer Zahl antworten.")
     guess = int(input("Welche Zahl rätst du?"))
     if guess == random.randint(1, 10):
         print("Bravo, du hast richtig geraten! Ich hatte tatsächlich an",guess,"gedacht. Hier hast du deine Belohnung von",int(answer)*5, "!")
-        game.village.ressources += (answer*5)
+        game.village.resources += (answer*5)
+    else:
+        print("Leider falsch, viel Glück beim nächsten mal!")
 
 def event_19(game):
     print("Du hilfst einer mysteriösen Frau, die sich verirrt hat. Als Dank schenkt sie dir eine Verjüngungskur.")
@@ -364,16 +373,16 @@ def event_19(game):
         blub = False
         while blub == False:
             for villager in game.villagers:
-                if villager.name == answer.lower() and villager.name == villager.age >16:
+                if villager.name == answer.lower() and villager.age >16:
                     villager.age = 16
                     blub = True
             answer = input("Gib den Namen nochmal ein. Achte auf deine Rechtschreibung!")
         print("Gratulation,", answer,"wirkt nun wieder deutlich jünger!")
 
 
-def event_20():
+def event_20(game):
     print("Auf dem Dorfplatz streiten sich zwei Leute. Der eine glaubt, die Erde dreht sich um die Sonne (1.). Der andere glaubt, die Sonne dreht sich um die Erde (2.).")
-    answer = input("Was stimmt? 1. oder 2.?")
+    answer = input("Was stimmt? 1. oder 2.? ")
     if answer.lower() == "1." or answer.lower() == "1":
         print("Das stimmt! Deine Dorfbewohner sind jetzt alle ein wenig schlauer. Der Lebensstil, der damit einhergeht, verbessert auch deren Gesundheit.")
         for villager in game.villagers:
@@ -392,10 +401,14 @@ doom8 = 0
 def random_event(game):
     chance_event = random.randint(1, 6)
     if chance_event == 1:
+        print(" ")
+        print("--------------------- EVENT! ----------------------")
+        print(" ")
         if doom3 == 1:
             event_3b(game)
         elif doom8 == 1:
             event_8b(game)
         else:
             random.choice(events)(game)
+        print(" ")
 

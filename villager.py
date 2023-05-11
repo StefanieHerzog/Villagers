@@ -5,7 +5,7 @@ class Villager:
     age = 0
     health = 100
     gender = ""
-    spouse = "none"
+    spouse = "-"
     children = []
     siblings = []
     parents = []
@@ -25,26 +25,26 @@ class Villager:
 
     def print_stats(self):
         print(
-            f"{self.name:<8}",
-            " Age: ", self.age,
-            " health: ", self.health ,
-            self.gender)
+            f"{self.name:<8}", "|",
+            " Alter: ", f"{self.age:<3}", "|",
+            " Gesundheit: ", self.health , "|",
+            " Partner: ", self.spouse)
 
     def is_adult(self):
         return self.age > 17
 
 femalenames = ["Anna", "Agatha", "Ophelia", "Daisy", "Mary", "Alice", "Agnes", "Beatrice", "Cecilia", "Eleanor", "Emma",
-               "Isabella", "Joan", "Margaret", "Matilda", "Philippa", "Rose", "Sybil", "Theresa", "Ysabel", "Arabella",
-               "Adela", "Aelis", "Aenor", "Almodis", "Amice", "Angharad", "Arletta", "Aveline", "Avice", "Basilia",
-               "Blanche", "Branwen", "Catalina", "Christiana", "Clarice", "Constance", "Cordelia", "Denise", "Dionisia",
-               "Dulcia", "Edith", "Eglantine", "Ela", "Ermengarde", "Ermentra", "Felice", "Flora", "Gabrielle",
-               "Galiana", "Genevieve", "Gervaise", "Giselle", "Gracia", "Gundred", "Heloise"]
+               "Isabella", "Joan", "Margaret", "Matilda", "Philippa", "Rose", "Sybil", "Theresa", "Ysabel", "Bella",
+               "Adela", "Aelis", "Aenor", "Alma", "Amice", "Zora", "Arletta", "Aveline", "Avice", "Basilia",
+               "Blanche", "Ruth", "Catalina", "Chrissy", "Clarice", "Conni", "Cordelia", "Denise", "Dionisia",
+               "Dulcia", "Edith", "Eliane", "Ella", "Etta", "Ermentra", "Felice", "Flora", "Gabi",
+               "Galiana", "Lucia", "Gervaise", "Giselle", "Gracia", "Gundred", "Heloise","Niamh","Gloria"]
 
 malenames = ["John", "Edward", "Paul", "Harold", "Albert", "Arthur", "Bernard", "Cedric", "Charles", "Edgar", "Edmund",
              "Geoffrey", "Henry", "Hugh", "Lancelot", "Louis", "Richard", "Robert", "Stephen", "Thomas", "William",
-             "Adalbert", "Adalhard", "Aelfric", "Aethelwulf", "Alaric", "Alberic", "Ambrose", "Anselm", "Archibald",
-             "Baldwin", "Bertram", "Cuthbert", "Eadric", "Eadwin", "Emeric", "Engelbert", "Ferdinand", "Gawain",
-             "Gerald", "Gervase", "Godfrey", "Harvey", "Hubert", "Ivo", "Hector", "Leopold", "Marmaduke"]
+             "Albert", "Adam", "Aelfric", "Beowulf", "Alaric", "Alberic", "Alex", "Ansel", "Archie",
+             "Baldwin", "Bertram", "Zion", "Eadric", "Erwin", "Emeric", "Engelbert", "Nathan", "Hector",
+             "Gerald", "Rolf", "Godfrey", "Harvey", "Hubert", "Ivo", "Hector", "Leopold", "Matthew", "Leopold"]
 
 
 random.shuffle(femalenames)
@@ -66,28 +66,28 @@ def assign_name_to_villager(gender):
 
 
 def create_random_villager():
-    return Villager(random.randint(1, 85), random.choice(["female","male"]), random.randint(20, 100),"none" , [],[],[],-1)
+    return Villager(random.randint(1, 85), random.choice(["female","male"]), random.randint(20, 100),"-" , [],[],[],-1)
 
 def create_random_old_villager():
-    return Villager(random.randint(60, 85), random.choice(["female","male"]), random.randint(20, 100),"none" , [],[],[],-1)
+    return Villager(random.randint(60, 85), random.choice(["female","male"]), random.randint(20, 100),"-" , [],[],[],-1)
 
 def create_random_minor_villager():
-    return Villager(random.randint(1, 14), random.choice(["female","male"]), random.randint(20, 100),"none" , [],[],[],-1)
+    return Villager(random.randint(1, 14), random.choice(["female","male"]), random.randint(20, 100),"-" , [],[],[],-1)
 
 def create_random_baby_villager():
-    return Villager(random.randint(0, 2), random.choice(["female","male"]), random.randint(20, 100),"none" , [],[],[],-1)
+    return Villager(random.randint(0, 2), random.choice(["female","male"]), random.randint(20, 100),"-" , [],[],[],-1)
 
 def create_random_female_villager():
-    return Villager(random.randint(1, 85), "female", random.randint(20, 100),"none" , [],[],[],-1)
+    return Villager(random.randint(1, 85), "female", random.randint(20, 100),"-" , [],[],[],-1)
 
 def create_random_male_villager():
-    return Villager(random.randint(1, 85), "male", random.randint(20, 100),"none" , [],[],[],-1)
+    return Villager(random.randint(1, 85), "male", random.randint(20, 100),"-" , [],[],[],-1)
 
 def create_newborn(mother):
     age = 0
     gender = random.choice(["female", "male"])
     health = random.randint(20, 100)
-    spouse = "none"
+    spouse = "-"
     parents = [mother.name, mother.spouse]
     children = []
     siblings = mother.children

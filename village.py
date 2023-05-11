@@ -10,20 +10,20 @@ class Village:
     resources = int()
 
     def __init__(self):
-        self.name = input("Wie soll dein Dorf heissen?")
+        self.name = input("Wie soll dein Dorf heissen? ")
         self.resources = 50
 
     def show_stats(self, villagers, year, month):
         print(
             f"{self.name:<8}",
-            f"Alter: {year} Jahre, {month} Monate",
-            " Bewohner: ", len(villagers),
-            " Erwachsene: ", self.count_villagers_of_ages(villagers, adult=True),
-            " Kinder: ", self.count_villagers_of_ages(villagers, adult=False),
-            "Weiblich: ", self.count_villagers_of_gender(villagers, gender="female"),
-            "Männlich: ", self.count_villagers_of_gender(villagers, gender="male"),
-            "Durchschn. Gesundheit: ", self.avg_health(villagers),
-            "Ressourcen: ", self.resources,
+            f"Alter: {year} Jahre, {month} Monate", "|" ,
+            " Bewohner: ", len(villagers), "|" ,
+            " Erwachsene: ", self.count_villagers_of_ages(villagers, adult=True), "|" ,
+            " Kinder: ", self.count_villagers_of_ages(villagers, adult=False), "|" ,
+            "Weiblich: ", self.count_villagers_of_gender(villagers, gender="female"), "|" ,
+            "Männlich: ", self.count_villagers_of_gender(villagers, gender="male"), "|" ,
+            "Durchschn. Gesundheit: ", self.avg_health(villagers), "|" ,
+            "Ressourcen: ", self.resources
         )
 
     def count_villagers_of_ages(self, villagers, adult):
@@ -48,7 +48,10 @@ class Village:
         total_health = 0
         for villager in villagers:
             total_health += villager.health
-        return int(total_health / len(villagers))
+        if len(villagers) > 0:
+            return int(total_health / len(villagers))
+        else:
+            return 0
 
     def villagers_age(self,villagers):
         for villager in villagers:
@@ -105,7 +108,7 @@ class Village:
 
     def try_for_baby(self, villagers):
         for villager in villagers:
-            if villager.gender == "female" and villager.pregnant == -1 and villager.spouse != "none":
+            if villager.gender == "female" and villager.pregnant == -1 and villager.spouse != "-":
                 if villager.age < 25:
                     chance_tfb = int(random.randint(-50, 30)) + villager.health
                 elif villager.age < 40:
@@ -115,7 +118,7 @@ class Village:
                 elif villager.age < 60:
                     chance_tfb = int(random.randint(-100, -20)) + villager.health
                 else:
-                    chance_tfb = int(random.randint(-100, -45))
+                    chance_tfb = int(random.randint(-100, -45)) + villager.health
                 if chance_tfb > 50:
                     villager.pregnant = 0
                     print("Gratulation, ", villager.name, " ist schwanger!")
@@ -124,7 +127,7 @@ class Village:
         mother.pregnant = -1
         if int(random.randint(1, 250)) != 250:
             newborn = create_newborn(mother)
-            print(mother.name, "und",father.name, "haben ein Baby bekommen! Es heisst",newborn.name)
+            print(mother.name, "hat ein Baby bekommen! Es heisst",newborn.name)
             mother.children.append(newborn.name)
             father.children.append(newborn.name)
             return [newborn]
@@ -145,7 +148,7 @@ class Village:
 def marry(person1, person2):
     if person1.spouse == person2.name:
         print("Diese Dorfbewohner sind schon miteinander verheiratet!")
-    elif person1.spouse != "none" or person2.spouse != "none":
+    elif person1.spouse != "-" or person2.spouse != "-":
         print("Verheiratete Dorfbewohner dürfen nicht heiraten!")
     elif person1.gender == person2.gender:
         print("Leider wurde die gleichgeschlechtliche Ehe in deinem Königreich noch nicht erlaubt")

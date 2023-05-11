@@ -4,10 +4,12 @@ from villager import Villager
 # to do: function to see if each villager dies each month
 
 def survival_check(villagers):
+    print("")
     print("Es ist wieder Winter. Wer wird sterben?")
     for villager in villagers:
         probability = set_probability_of_survival(villager)
         roll_the_die(probability,villager)
+    print("...")
     delete_dead_villagers(villagers)
 
 
@@ -24,15 +26,11 @@ def set_probability_of_survival(villager):
 
 # print (villager1.probability_of_survival)
 
-def roll_the_die(probability_of_survival,villager):
+def roll_the_die(probability,villager):
     import random
     random_number = random.randint(1, 90)
-    print("survival =" + str(probability_of_survival) + "... must be higher than " + str(random_number))
-    if random_number > probability_of_survival:
+    if random_number > probability:
         villager.health = 0
-        print(villager.name , "stirbt!")
-    else:
-        print(villager.name , "lebt!")
 
 def delete_dead_villagers(villagers):
     dead_villagers = []
@@ -49,3 +47,5 @@ def delete_dead_villagers(villagers):
         for villager in dead_villagers:
             villager.print_stats()
         print("------------------------------------------------")
+    else:
+        print("niemand ist gestorben!")
