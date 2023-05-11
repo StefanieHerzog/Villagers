@@ -14,7 +14,7 @@ def survival_check(villagers):
 
 
 def set_probability_of_survival(villager):
-    if villager.age < 6 or villager.age > 60:
+    if villager.age < 5 or villager.age > 60:
         probability_of_survival = 30
     elif villager.age < 12 or villager.age > 50:
         probability_of_survival = 50
@@ -48,4 +48,4 @@ def delete_dead_villagers(villagers):
             villager.print_stats()
         print("------------------------------------------------")
     else:
-        print("niemand ist gestorben!")
+        print("Alle leben noch!")

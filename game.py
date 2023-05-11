@@ -1,9 +1,13 @@
-#todo: leute scheiden wenn partner tot
+#todo:- wenn jemand stirbt oder removed wird, muss dessen Name bei allen Objekten beim Member "Partner" gesucht und entfernt werden
+#todo:- wenn ein Baby geboren wird, soll das auch gehen, wenn die Mutter keinen Partner hat
+
+#Zwillinge waren nicht möglich - wieso? (Eltern waren beide am leben)
 
 
 import threading
 import time
 from survival import survival_check
+from survival import delete_dead_villagers
 from utils import get_villager_by_name
 
 from villager import Villager, create_random_villager
@@ -48,8 +52,9 @@ class Game:
             print(f"Jahr {self.year}, Monat {self.month}")
             self.village.adjust_resources(self.villagers)
             self.village.adjust_health(self.villagers)
-            self.village.advance_pregnancy(self.villagers)
+            delete_dead_villagers(self.villagers)
             self.village.try_for_baby(self.villagers)
+            self.village.advance_pregnancy(self.villagers)
             self.village.show_stats(self.villagers, self.year, self.month)
             random_event(self)
             if len(self.villagers) == 0:
@@ -60,6 +65,10 @@ class Game:
                     print("Dein Dorf floriert - du hast gewonnen!")
             if self.month == 1:
                 survival_check(self.villagers)
+                if len(self.villagers) == 0:
+                    self.game_on = False
+                    print("Alle deine Bewohner sind gestorben. Das Spiel ist vorbei.")
+                    return
                 self.ask_for_marriage()
 
 
@@ -101,18 +110,18 @@ class Game:
             villager1 = get_villager_by_name(self.villagers, person1)
             if villager1 is None:
                 print("Es gibt keinen Dorfbewohner mit dem Namen", person1)
-                answer = input("Möchtest du nochmal versuchen, ein Paar zu verheiraten?")
+                answer = input("Möchtest du nochmal versuchen, ein Paar zu verheiraten? ")
                 continue
 
             person2 = input("2. Dorfbewohner: ")
             villager2 = get_villager_by_name(self.villagers, person2)
             if villager2 is None:
                 print("Es gibt keinen Dorfbewohner mit dem Namen", person2)
-                answer = input("Möchtest du nochmal versuchen, ein Paar zu verheiraten?")
+                answer = input("Möchtest du nochmal versuchen, ein Paar zu verheiraten? ")
                 continue
 
             marry(villager1, villager2)
-            answer = input("Möchtest du nochmal jemanden verheiraten?")
+            answer = input("Möchtest du nochmal jemanden verheiraten? ")
 
 
 

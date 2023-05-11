@@ -7,7 +7,7 @@ from villager import create_random_female_villager
 from villager import create_random_male_villager
 
 
-#all events
+#getestete Events:1,2,5,6,7,9,,14,18,21
 
 
 def event_1(game):
@@ -50,10 +50,10 @@ def event_3(game):
 def event_3b(game):
     global doom3
     for villager in game.villagers:
-        if villager.name == "Dolus":
+        if villager.name.lower()  == "dolus":
             print("Der Mann, den du vor kurzem aufgenommen hast, hat eine Sekte aufgebaut und verlässt eines Morgens mit fünf weiteren Bewohnern das Dorf, ohne jemals zurückzukehren.")
             for villager in game.villagers:
-                if villager.name == "dolus":
+                if villager.name.lower() == "dolus":
                     game.villagers.remove(villager)
             for i in range (5):
                 game.villagers.remove(random.choice(game.villagers))
@@ -64,7 +64,7 @@ def event_3b(game):
 
 def event_4(game):
     random_number = int()
-    print("Ein Bote kommt mit einer düsteren Botschaft zu euch: Entweder, das Dorf schliesst sich freiwillig dem Herzogtum Balisgtal an,\noder der Herzog schickt seine Soldaten, um das Dorf einzunehmen.")
+    print("Ein Bote kommt mit einer düsteren Botschaft zu euch: Entweder, das Dorf schliesst sich freiwillig dem Herzogtum Balsigtal an,\noder der Herzog schickt seine Soldaten, um das Dorf einzunehmen.")
     answer = input("Anschliessen oder Kämpfen? ")
     if answer.lower() == "anschliessen":
         game.village.resources -= 50
@@ -114,13 +114,13 @@ def event_7(game):
     offender = random.choice(males)
     print("Eine blutige Bandage verbigt das Auge von", victim.name, "die deine Hilfe ersucht. Sie erzählt, dass sie von", offender.name,",dem \nreichsten Mann im Dorf geschlagen wurde. Du hast den Eindruck, er wird als wie gewaltätiger. Was möchtest du tun?")
     answer = input("Verbannen oder Verzeihen? ")
-    if answer.lower() == "Verbannen" or "verbannen":
+    if answer.lower() == "verbannen":
         print("Die Dorfbewohner bedanken sich bei dir. Sie fühlen sich jetzt alle sicherer.\nDer Wegzug von " , offender.name,  "hinterlässt allerdings ein klaffendes Loch in der Dorfkasse.")
         game.villagers.remove(offender)
         game.village.resources -= 20
     else:
         game.villagers.remove(victim)
-        print("Jemand so reiches aus dem Dorf zu verbannen, kannst du dir einfach nicht leisten - Gefahr hin oder her!\nAm nächsten Tag findest du", victim.name, "tot in einem Innenhof")
+        print("Jemand so Reiches aus dem Dorf zu verbannen, kannst du dir einfach nicht leisten - Gefahr hin oder her!\nAm nächsten Tag findest du", victim.name, "tot in einem Innenhof")
 
 
 def event_8(game):
@@ -198,56 +198,49 @@ def event_11(game):
         print("Nur",old_people," alte Leute? Es scheint, als würdest du alte Leute hassen...")
 
 
-#index einbauen, sonst werden nicht alle entfernt!
+
 def event_12(game):
+    game.sort_and_print_villagers_by_age()
     removed = 0
+    index = 0
     print("Ein Bote verkündet Schlimmes: Der König braucht mehr Bedienstete. Wähle eine Personengruppe, welche du dem König für immer zusendest.")
     answer = input("Kinder,Alte, Weibliche oder Männliche? ")
-    if answer.lower() == "kinder":
-        for villager in game.villagers:
-            if villager.age < 12:
-                game.villagers.remove(villager)
-                removed += 1
-        if removed > 0:
-            print(removed, "Kinder wurden dem König entsendet.")
-        else:
-            print("Der König ist entrüstet, dass du versuchst, ihm niemanden zu senden. Als Strafe treibt er 60 Ressurcen von dir ein!")
-            game.village.resources -= 60
+    while index < len(game.villagers):
+        if answer.lower() == "kinder":
+            for villager in game.villagers:
+                if villager.age < 12:
+                    game.villagers.remove(villager)
+                    removed += 1
+                else:
+                    index += 1
+        elif answer.lower() == "alte":
+            for villager in game.villagers:
+                if villager.age > 60:
+                    game.villagers.remove(villager)
+                    removed += 1
+                else:
+                    index += 1
 
-    elif answer.lower() == "alte":
-        for villager in game.villagers:
-            if villager.age > 60:
-                game.villagers.remove(villager)
-                removed += 1
-        if removed > 0:
-            print(removed, "Alte wurden dem König entsendet.")
-        else:
-            print("Der König ist entrüstet, dass du versuchst, ihm niemanden zu senden. Als Strafe er 60 Ressurcen von dir ein!")
-            game.village.resources -= 60
+        elif answer.lower() == "weibliche" or answer.lower() == "weiblich":
+            for villager in game.villagers:
+                if villager.gender == "female":
+                    game.villagers.remove(villager)
+                    removed += 1
+                else:
+                    index += 1
 
-    elif answer.lower() == "weibliche" or answer.lower() == "weiblich":
-        for villager in game.villagers:
-            if villager.gender == "female":
-                game.villagers.remove(villager)
-                removed += 1
-        if removed > 0:
-            print(removed, "Frauen und Mädchen wurden dem König entsendet.")
-        else:
-            print("Der König ist entrüstet, dass du versuchst, ihm niemanden zu senden. Als Strafe treibt er 60 Ressurcen von dir ein!")
-            game.village.resources -= 60
-
-    elif answer.lower() == "männliche" or answer.lower() == "männliche":
-          for villager in game.villagers:
-            if villager.gender == "male":
-                game.villagers.remove(villager)
-                removed += 1
-            if removed > 0:
-                print(removed, "Männer und Knaben wurden dem König entsendet.")
-            else:
-                print("Der König ist entrüstet, dass du versuchst, ihm niemanden zu senden. Als Strafe er 60 Ressurcen von dir ein!")
-                game.village.resources -= 60
-
-
+        elif answer.lower() == "männliche" or answer.lower() == "männliche":
+              for villager in game.villagers:
+                if villager.gender == "male":
+                    game.villagers.remove(villager)
+                    removed += 1
+                else:
+                    index += 1
+    if removed == 0:
+        print("Der König ist entrüstet, dass du versuchst, ihm niemanden zu senden. Als Strafe er 60 Ressurcen von dir ein!")
+        name.village.resources -= 60
+    else:
+        print(removed, answer.capitalize(), "wurden dem König entsendet.")
 
 def event_13(game):
     anz_neue_db = int()
@@ -255,6 +248,8 @@ def event_13(game):
     answer = (input("0,10 oder 30 Ressourcen zahlen? (nur mit einer Zahl antworten) "))
     while answer != "0" and answer != "10" and answer != "30":
         answer = (input("Versuch's nochmal. Schreib nur 0,10 oder 30. "))
+    while int(answer) > game.village.resources:
+        answer = (input("Du hast nicht genug Geld dafür! Wähle einen anderen Betrag: "))
     if answer == 0:
         print("Der Mann verabschiedet sich höflich und zieht von Dannen.")
         return
@@ -292,7 +287,7 @@ def event_14(game):
         for villager in game.villagers:
             if villager.name.lower() == answer.lower():
                 villager.health = 100
-                print("Gratulation,", answer, "wirkt nun wieder deutlich gesünder!")
+                print("Gratulation,", answer.capitalize(), "wirkt nun wieder deutlich gesünder!")
                 return
         answer = input("Gib den Namen nochmal ein. Achte auf deine Rechtschreibung!")
 
@@ -322,7 +317,7 @@ def event_16(game):
                 if villager.name == "stephen":
                     game.villagers.remove(villager)
                     game.village.resources += 50
-            print("Der Bote ist enorm erleichtert. Er zieht, mit einem verwirrten Stephen im Schlepptau davon.\nDu schaust ihm hinterher und streichelst den grossen Sack Gold, den du soeben erhlten hast.")
+            print("Der Bote ist enorm erleichtert. Er zieht, mit einem verwirrten Stephen im Schlepptau davon.\nDu schaust ihm hinterher und streichelst den grossen Sack Gold, den du soeben erhalten hast.")
         else:
             print("'Stephen? Nein, noch gehört. Schönen Tag noch!' Der Bote macht sich verzweifelt aus dem Staub und Stephen schuldet dir jetzt einen Gefallen!")
 
@@ -365,19 +360,21 @@ def event_18(game):
         print("Leider falsch, viel Glück beim nächsten mal!")
 
 def event_19(game):
+    erledigt = False
     print("Du hilfst einer mysteriösen Frau, die sich verirrt hat. Als Dank schenkt sie dir eine Verjüngungskur.")
-    answer = input("Welchem deiner Dorfbewohner möchtest du diese geben? Wenn niemandem, dann schreibe 'keinem'")
+    answer = input("Welchem deiner Dorfbewohner möchtest du diese geben? Wenn niemandem, dann schreibe 'keinem' ")
     if answer.lower() == "keinem":
         print("Leider profitiert keiner deiner Dorfbewohner vom Trank. Die Frau nimmt ihn wieder mit.")
     else:
-        blub = False
-        while blub == False:
+        while erledigt == False:
             for villager in game.villagers:
-                if villager.name == answer.lower() and villager.age >16:
+                if villager.name.lower() == answer.lower() and villager.age > 16:
                     villager.age = 16
-                    blub = True
-            answer = input("Gib den Namen nochmal ein. Achte auf deine Rechtschreibung!")
-        print("Gratulation,", answer,"wirkt nun wieder deutlich jünger!")
+                    erledigt = True
+                    break  # Exit the while loop once a valid villager has been found
+            if not erledigt:
+                answer = input("Gib den Namen nochmal ein. Achte auf deine Rechtschreibung!")
+        print("Gratulation, {}, wirkt nun wieder deutlich jünger!".format(answer.capitalize()))
 
 
 def event_20(game):
@@ -390,10 +387,36 @@ def event_20(game):
     else:
         print("Das stimmt nicht! Aber niemand kann's überprüfen. Tja!")
 
+def event_21(game):
+    erledigt = False
+    print("Du hilfst einer mysteriösen Frau, die sich verirrt hat. Als Dank schenkt sie dir ein Elixir, das aus Kindern junge Erwachsene macht.")
+    answer = input("Welchem deiner Dorfbewohner möchtest du diese geben? Wenn niemandem, dann schreibe 'keinem' ")
+    if answer.lower() == "keinem":
+        print("Leider profitiert keiner deiner Dorfbewohner vom Trank. Die Frau nimmt ihn wieder mit.")
+    else:
+        while erledigt == False:
+            for villager in game.villagers:
+                if villager.name.lower() == answer.lower() and villager.age < 16:
+                    villager.age = 16
+                    erledigt = True
+                    break  # Exit the while loop once a valid villager has been found
+            if not erledigt:
+                answer = input("Gib den Namen nochmal ein. Achte auf deine Rechtschreibung!")
+        print("Gratulation, {}, wirkt nun wieder deutlich älter!".format(answer.capitalize()))
+
+def event_22(game):
+    print("Eine Magierin bietet dir an, Zeit verstreichen zu lassen. Innert dieser Zeit passieren keine Events, Geburten oder Todesfälle. Alle altern.")
+    jahre = int(input("Wie viele Jahre sollen vergehen? Antworte mit einer Zahl. "))
+    game.year += jahre
+    for villager in game.villagers:
+        villager.age += jahre
+    print(jahre, "Jahre sind vergangen.")
+
 
 #ein zufälliges Event wählen und ausführen
 
-events = [event_1,event_2,event_3,event_4,event_5,event_6,event_7,event_8,event_9,event_10,event_11,event_12,event_13,event_14,event_15,event_16,event_17,event_18,event_19,event_20]
+
+events = [event_1,event_2,event_3,event_4,event_5,event_6,event_7,event_8,event_9,event_10,event_11,event_12,event_13,event_14,event_15,event_16,event_17,event_18,event_19,event_20,event_21,event_22]
 
 doom3 = 0
 doom8 = 0
@@ -410,5 +433,7 @@ def random_event(game):
             event_8b(game)
         else:
             random.choice(events)(game)
+        print(" ")
+        print("---------------- EVENT FERTIG! ----------------------")
         print(" ")
 

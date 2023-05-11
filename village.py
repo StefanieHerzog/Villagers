@@ -22,7 +22,7 @@ class Village:
             " Kinder: ", self.count_villagers_of_ages(villagers, adult=False), "|" ,
             "Weiblich: ", self.count_villagers_of_gender(villagers, gender="female"), "|" ,
             "Männlich: ", self.count_villagers_of_gender(villagers, gender="male"), "|" ,
-            "Durchschn. Gesundheit: ", self.avg_health(villagers), "|" ,
+            "Durchschn. Gesundheit: ", f"{self.avg_health(villagers):<4}", "|"
             "Ressourcen: ", self.resources
         )
 
@@ -114,7 +114,7 @@ class Village:
                 elif villager.age < 40:
                     chance_tfb = int(random.randint(-70, 20)) + villager.health
                 elif villager.age < 50:
-                    chance_tfb = int(random.randint(-100, 0)) + villager.health
+                    chance_tfb = int(random.randint(-100, -10)) + villager.health
                 elif villager.age < 60:
                     chance_tfb = int(random.randint(-100, -20)) + villager.health
                 else:
@@ -127,16 +127,18 @@ class Village:
         mother.pregnant = -1
         if int(random.randint(1, 250)) != 250:
             newborn = create_newborn(mother)
-            print(mother.name, "hat ein Baby bekommen! Es heisst",newborn.name)
+            print(mother.name, "hat ein Baby bekommen! Es heisst",newborn.name,".")
             mother.children.append(newborn.name)
-            father.children.append(newborn.name)
+            if father is not None:
+                father.children.append(newborn.name)
             return [newborn]
         else:
             twin1 = create_newborn(mother)
             twin2 = create_newborn(mother)
-            print("Unglaublich!",mother.name, "und",father.name, "haben Zwillinge bekommen! Sie heissen",twin1.name ,"und",twin2.name)
+            print("Unglaublich!",mother.name, "hat Zwillinge bekommen! Sie heissen",twin1.name ,"und",twin2.name,".")
             mother.children.extend([twin1.name,twin2.name])
-            father.children.extend([twin1.name,twin2.name])
+            if father is not None:
+                father.children.extend([twin1.name,twin2.name])
             return [twin1, twin2]
         #die älteren Geschwister müssen das Jüngere auch noch zu den Siblings dazubekommen!
 

@@ -31,14 +31,14 @@ class Villager:
             " Partner: ", self.spouse)
 
     def is_adult(self):
-        return self.age > 17
+        return self.age >= 16
 
 femalenames = ["Anna", "Agatha", "Ophelia", "Daisy", "Mary", "Alice", "Agnes", "Beatrice", "Cecilia", "Eleanor", "Emma",
                "Isabella", "Joan", "Margaret", "Matilda", "Philippa", "Rose", "Sybil", "Theresa", "Ysabel", "Bella",
-               "Adela", "Aelis", "Aenor", "Alma", "Amice", "Zora", "Arletta", "Aveline", "Avice", "Basilia",
+               "Adela", "Elise", "Aenor", "Alma", "Amice", "Zora", "Arletta", "Aveline", "Avice", "Basilia",
                "Blanche", "Ruth", "Catalina", "Chrissy", "Clarice", "Conni", "Cordelia", "Denise", "Dionisia",
                "Dulcia", "Edith", "Eliane", "Ella", "Etta", "Ermentra", "Felice", "Flora", "Gabi",
-               "Galiana", "Lucia", "Gervaise", "Giselle", "Gracia", "Gundred", "Heloise","Niamh","Gloria"]
+               "Galiana", "Lucia", "Ginny", "Giselle", "Gracia", "Gundred", "Heloise","Niamh","Gloria"]
 
 malenames = ["John", "Edward", "Paul", "Harold", "Albert", "Arthur", "Bernard", "Cedric", "Charles", "Edgar", "Edmund",
              "Geoffrey", "Henry", "Hugh", "Lancelot", "Louis", "Richard", "Robert", "Stephen", "Thomas", "William",
