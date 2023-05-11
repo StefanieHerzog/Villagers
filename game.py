@@ -18,7 +18,7 @@ from events import random_event
 
 class Game:
     game_on = False
-    time_step = 3
+    time_step = 1 #3
     year = 0
     month = 1
 
