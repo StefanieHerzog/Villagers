@@ -60,7 +60,7 @@ def event_3b(game):
             doom3 = 0
         else:
             doom3 = 0
-            random_event(game)
+            random.choice(events)(game)
 
 def event_4(game):
     random_number = int()
@@ -279,6 +279,8 @@ def event_13(game):
         game.villagers.append(create_random_male_villager())
         print(anz_neue_db, "neue Jungen und Männer sind zu deinem Dorf hinzugestossen.")
 
+# frauen wurden geaddet obwohl "männlich" geschrieben
+
 def event_14(game):
     game.sort_and_print_villagers_by_age()
     print("Einer deiner Dorfbewohner hat im Wald ein seltenes und hoch wirksames Heilkraut gefunden.")
@@ -402,7 +404,7 @@ def event_21(game):
                     break  # Exit the while loop once a valid villager has been found
             if not erledigt:
                 answer = input("Gib den Namen nochmal ein. Achte auf deine Rechtschreibung!")
-        print("Gratulation, {}, wirkt nun wieder deutlich älter!".format(answer.capitalize()))
+        print("Gratulation", answer.capitalize(), "wirkt nun wieder deutlich älter!")
 
 def event_22(game):
     print("Eine Magierin bietet dir an, Zeit verstreichen zu lassen. Innert dieser Zeit passieren keine Events, Geburten oder Todesfälle. Alle altern.")
