@@ -1,8 +1,6 @@
 #todo:- wenn jemand stirbt oder removed wird, muss dessen Name bei allen Objekten beim Member "Partner" gesucht und entfernt werden
-#todo:- wenn ein Baby geboren wird, soll das auch gehen, wenn die Mutter keinen Partner hat
 
 #Zwillinge waren nicht möglich - wieso? (Eltern waren beide am leben)
-
 
 import threading
 import time
@@ -18,7 +16,7 @@ from events import random_event
 
 class Game:
     game_on = False
-    time_step = 1 #3
+    time_step = 2
     year = 0
     month = 1
 
@@ -60,9 +58,11 @@ class Game:
             if len(self.villagers) == 0:
                 self.game_on = False
                 print("Alle deine Bewohner sind gestorben. Das Spiel ist vorbei.")
+                return
             if len(self.villagers) >= 40:
                     self.game_on = False
                     print("Dein Dorf floriert - du hast gewonnen!")
+                    return
             if self.month == 1:
                 survival_check(self.villagers)
                 if len(self.villagers) == 0:

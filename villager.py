@@ -1,5 +1,8 @@
 import random
 
+
+
+
 class Villager:
     name = ""
     age = 0
@@ -43,7 +46,7 @@ femalenames = ["Anna", "Agatha", "Ophelia", "Daisy", "Mary", "Alice", "Agnes", "
 malenames = ["John", "Edward", "Paul", "Harold", "Albert", "Arthur", "Bernard", "Cedric", "Charles", "Edgar", "Edmund",
              "Geoffrey", "Henry", "Hugh", "Lancelot", "Louis", "Richard", "Robert", "Stephen", "Thomas", "William",
              "Albert", "Adam", "Aelfric", "Beowulf", "Alaric", "Alberic", "Alex", "Ansel", "Archie",
-             "Baldwin", "Bertram", "Zion", "Eadric", "Erwin", "Emeric", "Engelbert", "Nathan", "Hector",
+             "Baldwin", "Bertram", "Zion", "Eadric", "Erwin", "Emeric", "Jonas", "Nathan", "Hector",
              "Gerald", "Rolf", "Godfrey", "Harvey", "Hubert", "Ivo", "Hector", "Leopold", "Matthew", "Leopold"]
 
 

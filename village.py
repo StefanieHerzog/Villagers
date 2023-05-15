@@ -15,7 +15,7 @@ class Village:
 
     def show_stats(self, villagers, year, month):
         print(
-            f"{self.name:<8}",
+            f"{self.name:<8}"+":",
             f"Alter: {year} Jahre, {month} Monate", "|" ,
             " Bewohner: ", len(villagers), "|" ,
             " Erwachsene: ", self.count_villagers_of_ages(villagers, adult=True), "|" ,
@@ -61,8 +61,8 @@ class Village:
         change_resources = 0
         for villager in villagers:
             if villager.is_adult():
-                change_resources += 5
-            change_resources -= 2
+                change_resources += 2.5
+            change_resources -= 1
         self.resources += change_resources
         if self.resources <0:
             self.resources = 0
@@ -109,17 +109,17 @@ class Village:
     def try_for_baby(self, villagers):
         for villager in villagers:
             if villager.gender == "female" and villager.pregnant == -1 and villager.spouse != "-":
-                if villager.age < 25:
+                if villager.age < 23:
                     chance_tfb = int(random.randint(-50, 30)) + villager.health
-                elif villager.age < 40:
+                elif villager.age < 30:
                     chance_tfb = int(random.randint(-70, 20)) + villager.health
-                elif villager.age < 50:
-                    chance_tfb = int(random.randint(-100, -10)) + villager.health
                 elif villager.age < 60:
+                    chance_tfb = int(random.randint(-100, -10)) + villager.health
+                elif villager.age < 70:
                     chance_tfb = int(random.randint(-100, -20)) + villager.health
                 else:
                     chance_tfb = int(random.randint(-100, -45)) + villager.health
-                if chance_tfb > 50:
+                if chance_tfb > 70:
                     villager.pregnant = 0
                     print("Gratulation, ", villager.name, " ist schwanger!")
 
@@ -127,7 +127,7 @@ class Village:
         mother.pregnant = -1
         if int(random.randint(1, 250)) != 250:
             newborn = create_newborn(mother)
-            print(mother.name, "hat ein Baby bekommen! Es heisst",newborn.name,".")
+            print(mother.name, "hat ein Baby bekommen! Es heisst",str(newborn.name)+".")
             mother.children.append(newborn.name)
             if father is not None:
                 father.children.append(newborn.name)
