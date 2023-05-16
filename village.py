@@ -6,7 +6,6 @@ from survival import delete_dead_villagers
 
 class Village:
     name = ""
-    villagers = []
     resources = int()
 
     def __init__(self):
@@ -109,7 +108,7 @@ class Village:
     def try_for_baby(self, villagers):
         for villager in villagers:
             if villager.gender == "female" and villager.pregnant == -1 and villager.spouse != "-":
-                if villager.age < 23:
+                if villager.age < 20:
                     chance_tfb = int(random.randint(-50, 30)) + villager.health
                 elif villager.age < 30:
                     chance_tfb = int(random.randint(-70, 20)) + villager.health
@@ -119,7 +118,7 @@ class Village:
                     chance_tfb = int(random.randint(-100, -20)) + villager.health
                 else:
                     chance_tfb = int(random.randint(-100, -45)) + villager.health
-                if chance_tfb > 70:
+                if chance_tfb > 80:
                     villager.pregnant = 0
                     print("Gratulation, ", villager.name, " ist schwanger!")
 

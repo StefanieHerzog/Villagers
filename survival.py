@@ -15,13 +15,13 @@ def survival_check(villagers):
 
 def set_probability_of_survival(villager):
     if villager.age < 5 or villager.age > 60:
-        probability_of_survival = 30
+        probability_of_survival = 35
     elif villager.age < 12 or villager.age > 50:
         probability_of_survival = 50
     else:
         probability_of_survival = 90
 
-    return (probability_of_survival + villager.health)  / 2
+    return (probability_of_survival + villager.health) / 2
 
 
 # print (villager1.probability_of_survival)

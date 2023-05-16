@@ -7,7 +7,6 @@ from villager import create_random_female_villager
 from villager import create_random_male_villager
 
 
-
 def event_1(game):
     print("Dir wird berichtet, dass eine Gruppe ausgehungerter Kinder in den Wäldern nahe deines Dorfes lebt. Möchtest du sie aufnehmen?")
     answer = input("Ja oder Nein? ")
@@ -352,7 +351,7 @@ def event_17(game):
                 if villager.name == kind.name:
                     game.villagers.remove(villager)
             game.village.resources += 50
-            print("Das Ehepaar freut sich und verschwindet zusammen mit",kind.name, "im Horizont. \nDu schaust ihnen hinterher und streichelst den grossen Sack Gold, den du soeben erhlten hast.")
+            print("Das Ehepaar freut sich und verschwindet zusammen mit",kind.name, "im Horizont. \nDu schaust ihnen hinterher und streichelst den grossen Sack Gold, den du soeben erhalten hast.")
         else:
             print("Das Ehepaar macht sich entrüstet aus dem Staub. So eine Frechheit von dir!")
 

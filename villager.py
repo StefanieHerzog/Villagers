@@ -1,8 +1,6 @@
 import random
 
 
-
-
 class Villager:
     name = ""
     age = 0
@@ -30,7 +28,7 @@ class Villager:
         print(
             f"{self.name:<8}", "|",
             " Alter: ", f"{self.age:<3}", "|",
-            " Gesundheit: ", self.health , "|",
+            " Gesundheit: ", f"{self.health:<3}" , "|",
             " Partner: ", self.spouse)
 
     def is_adult(self):
@@ -84,7 +82,7 @@ def create_random_female_villager():
     return Villager(random.randint(1, 85), "female", random.randint(20, 100),"-" , [],[],[],-1)
 
 def create_random_male_villager():
-    return Villager(random.randint(1, 85), "male", random.randint(20, 100),"-" , [],[],[],-1)
+    return Villager(random.randint(1, 85), "male", random.randint(20, 100), "-", [], [], [], -1)
 
 def create_newborn(mother):
     age = 0

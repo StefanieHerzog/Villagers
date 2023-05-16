@@ -1,4 +1,5 @@
 #todo:- wenn jemand stirbt oder removed wird, muss dessen Name bei allen Objekten beim Member "Partner" gesucht und entfernt werden
+#todo: liste Villagers ist in game und village vorhanden!
 
 #Zwillinge waren nicht möglich - wieso? (Eltern waren beide am leben)
 
@@ -30,7 +31,6 @@ class Game:
             self.village = Village()
             self.create_first_villagers(8)
             self.village.show_stats(self.villagers, self.year, self.month)
-            #self.sort_and_print_villagers_by_age()
             self.ask_for_marriage()
             self.thread = threading.Thread(target=self.main_loop)
             self.thread.start()
