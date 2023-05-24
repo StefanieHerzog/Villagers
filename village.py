@@ -61,6 +61,8 @@ class Village:
         for villager in villagers:
             if villager.is_adult():
                 change_resources += 2.5
+            elif villager.is_of_working_age():
+                change_resources += 1
             change_resources -= 1
         self.resources += change_resources
         if self.resources <0:

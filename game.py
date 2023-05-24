@@ -1,11 +1,10 @@
 #todo:- wenn jemand stirbt oder removed wird, muss dessen Name bei allen Objekten beim Member "Partner" gesucht und entfernt werden
-#todo: liste Villagers ist in game und village vorhanden!
 
-#Zwillinge waren nicht möglich - wieso? (Eltern waren beide am leben)
 
 import threading
 import time
 from survival import survival_check
+from survival import relative_check
 from survival import delete_dead_villagers
 from utils import get_villager_by_name
 
@@ -13,6 +12,7 @@ from villager import Villager, create_random_villager
 from village import Village, marry
 
 from events import random_event
+
 
 
 class Game:
@@ -51,8 +51,8 @@ class Game:
             self.village.adjust_resources(self.villagers)
             self.village.adjust_health(self.villagers)
             delete_dead_villagers(self.villagers)
-            self.village.try_for_baby(self.villagers)
             self.village.advance_pregnancy(self.villagers)
+            self.village.try_for_baby(self.villagers)
             self.village.show_stats(self.villagers, self.year, self.month)
             random_event(self)
             if len(self.villagers) == 0:
@@ -65,11 +65,11 @@ class Game:
                     return
             if self.month == 1:
                 survival_check(self.villagers)
+                relative_check(self)
                 if len(self.villagers) == 0:
                     self.game_on = False
                     print("Alle deine Bewohner sind gestorben. Das Spiel ist vorbei.")
                     return
-                    break
                 self.ask_for_marriage()
 
 

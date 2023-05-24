@@ -34,9 +34,12 @@ class Villager:
     def is_adult(self):
         return self.age >= 16
 
+    def is_of_working_age(self):
+        return self.age >= 10
+
 femalenames = ["Anna", "Agatha", "Ophelia", "Daisy", "Mary", "Alice", "Agnes", "Beatrice", "Cecilia", "Eleanor", "Emma",
                "Isabella", "Joan", "Margaret", "Matilda", "Philippa", "Rose", "Sybil", "Theresa", "Ysabel", "Bella",
-               "Adela", "Elise", "Aenor", "Alma", "Amice", "Zora", "Arletta", "Aveline", "Avice", "Basilia",
+               "Adela", "Elise", "Aenora", "Alma", "Amice", "Zora", "Arletta", "Aveline", "Avice", "Basilia",
                "Blanche", "Ruth", "Catalina", "Chrissy", "Clarice", "Conni", "Cordelia", "Denise", "Dionisia",
                "Dulcia", "Edith", "Eliane", "Ella", "Etta", "Ermentra", "Felice", "Flora", "Gabi",
                "Galiana", "Lucia", "Ginny", "Giselle", "Gracia", "Gundred", "Heloise","Niamh","Gloria"]

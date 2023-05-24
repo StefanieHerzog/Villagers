@@ -6,7 +6,7 @@ from villager import create_random_old_villager
 from villager import create_random_female_villager
 from villager import create_random_male_villager
 
-
+angeschlossen = False
 def event_1(game):
     print("Dir wird berichtet, dass eine Gruppe ausgehungerter Kinder in den Wäldern nahe deines Dorfes lebt. Möchtest du sie aufnehmen?")
     answer = input("Ja oder Nein? ")
@@ -64,18 +64,23 @@ def event_3b(game):
         random.choice(events)(game)
 
 def event_4(game):
-    random_number = int()
-    print("Ein Bote kommt mit einer düsteren Botschaft zu euch: Entweder, das Dorf schliesst sich freiwillig dem Herzogtum Balsigtal an,\noder der Herzog schickt seine Soldaten, um das Dorf einzunehmen.")
-    answer = input("Anschliessen oder Kämpfen? ")
-    if answer.lower() == "anschliessen":
-        game.village.resources -= 50
-        print("Der Herzog ist erfreut und deine Dorfbewohner sicher. Dafür verlangt der Herzog hohe Abgaben. War es das wohl wert?")
+    global angeschlossen
+    if angeschlossen:
+        print("Der Herzog von Balisgtal treibt mal wieder Steuern ein! Er verlangt 20 Ressourcen.")
+        game.village.resources -= 20
     else:
-        print(game.village.name, "soll unabhängig bleiben! Deine Dorfbewohner verteidigen das Dorf ehrenvoll.\nViele Männer zwischen 12 und 60 sterben, doch das Dorf bleibt frei.")
-        for villager in game.villagers:
-            random_number = random.randint(1,5)
-            if villager.gender == "male" and villager.age < 60 and villager.age > 12 and random_number == 5:
-                game.villagers.remove(villager)
+        print("Ein Bote kommt mit einer düsteren Botschaft zu euch: Entweder, das Dorf schliesst sich freiwillig dem Herzogtum Balsigtal an,\noder der Herzog schickt seine Soldaten, um das Dorf einzunehmen.")
+        answer = input("Anschliessen oder Kämpfen? ")
+        if answer.lower() == "anschliessen":
+            game.village.resources -= 50
+            print("Der Herzog ist erfreut und deine Dorfbewohner sicher. Dafür verlangt der Herzog hohe Abgaben. War es das wohl wert?")
+            angeschlossen = True
+        else:
+            print(game.village.name, "soll unabhängig bleiben! Deine Dorfbewohner verteidigen das Dorf ehrenvoll.\nViele Männer zwischen 12 und 60 sterben, doch das Dorf bleibt frei.")
+            for villager in game.villagers:
+                random_number = random.randint(1,5)
+                if villager.gender == "male" and villager.age < 60 and villager.age > 12 and random_number == 5:
+                    game.villagers.remove(villager)
 
 def event_5(game):
     print("Es ist gerade besonders heiss. Das Wasser im Brunnen geht langsam aber sicher zu Neige.\nSollen die Dorfbewohner im Schatten bleiben und weniger arbeiten, oder aber das Wasser aus dem dreckigen Fluss trinken?")
@@ -175,7 +180,7 @@ def event_9(game):
 #
 
 def event_10(game):
-    print("Einer deiner Dorfbewohner hat beim Buddeln ein kleines Stückchen Gold gefunden. Möchtest du 30 Ressourcen investieren, um nach weiterem Gold zu schürfen, oder ist es dir das Risik nicht wert?")
+    print("Einer deiner Dorfbewohner hat beim Buddeln ein kleines Stückchen Gold gefunden. Möchtest du 30 Ressourcen investieren, um nach weiterem Gold zu schürfen, \noder ist es dir das Risik nicht wert?")
     answer = input("Schürfen oder Verzichten? ")
     if answer.lower() == "schürfen":
         chance_gold = random.randint(0, 100)
@@ -272,7 +277,7 @@ def event_13(game):
     if answer.lower() == "kinder":
         for i in range(anz_neue_db):
             game.villagers.append(create_random_minor_villager())
-            print(anz_neue_db,"neue Kinder sind zu deinem Dorf hinzugestossen.")
+        print(anz_neue_db,"neue Kinder sind zu deinem Dorf hinzugestossen.")
     elif answer.lower() == "alte":
         for i in range(anz_neue_db):
             game.villagers.append(create_random_old_villager())
@@ -381,7 +386,6 @@ def event_19(game):
                 if villager.name.lower() == answer.lower() and villager.age > 16:
                     villager.age = 16
                     erledigt = True
-                    break  # Exit the while loop once a valid villager has been found
             if not erledigt:
                 answer = input("Gib den Namen nochmal ein. Achte auf deine Rechtschreibung!")
         print("Gratulation, {}, wirkt nun wieder deutlich jünger!".format(answer.capitalize()))

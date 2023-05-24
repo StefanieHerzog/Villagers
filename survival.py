@@ -49,3 +49,24 @@ def delete_dead_villagers(villagers):
         print("------------------------------------------------")
     else:
         print("Alle leben noch!")
+
+
+def relative_check(game):
+    villagers_names = []
+    for villager in game.villagers:
+        villagers_names.append(villager.name)
+    for villager1 in game.villagers:
+        for element in villager1.parents:
+            if element not in villagers_names:
+                villager1.parents.remove(element)
+    for villager1 in game.villagers:
+        for element in villager1.siblings:
+            if element not in villagers_names:
+                villager1.siblings.remove(element)
+    for villager1 in game.villagers:
+        for element in villager1.children:
+            if element not in villagers_names:
+                villager1.children.remove(element)
+    for villager1 in game.villagers:
+        if villager1.spouse not in villagers_names:
+            villager1.spouse = "-"
