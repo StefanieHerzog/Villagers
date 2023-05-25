@@ -15,7 +15,6 @@ class Village:
     def show_stats(self, villagers, year, month):
         print(
             f"{self.name:<8}"+":",
-            f"Alter: {year} Jahre, {month} Monate", "|" ,
             " Bewohner: ", len(villagers), "|" ,
             " Erwachsene: ", self.count_villagers_of_ages(villagers, adult=True), "|" ,
             " Kinder: ", self.count_villagers_of_ages(villagers, adult=False), "|" ,

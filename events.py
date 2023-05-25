@@ -60,7 +60,6 @@ def event_3b(game):
         doom3 = 0
     else:
         doom3 = 0
-        print("else!")
         random.choice(events)(game)
 
 def event_4(game):
